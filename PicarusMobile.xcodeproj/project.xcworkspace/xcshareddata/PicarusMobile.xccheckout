@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>9B2BED7C-6C94-49D4-AB43-336F11B43FAD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PicarusMobile</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>67E30841E85BAB9A2065340989F0024BB76C827D</key>
+		<string>https://github.com/edwinlin1987/Picarus-mobile.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PicarusMobile.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>67E30841E85BAB9A2065340989F0024BB76C827D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/edwinlin1987/Picarus-mobile.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>67E30841E85BAB9A2065340989F0024BB76C827D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>67E30841E85BAB9A2065340989F0024BB76C827D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Picarus-mobile</string>
+		</dict>
+	</array>
+</dict>
+</plist>
