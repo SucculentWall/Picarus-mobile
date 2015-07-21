@@ -3,12 +3,14 @@
 var React = require('react-native');
 var api = require('../Utils/api.js');
 var Separator = require('./Helpers/Separator.js');
+var Profile = require('./Profile/app-profile');
 
 var {
   View,
   Image,
   Text,
   ListView,
+  TouchableHighlight,
   StyleSheet,
 } = React;
 
@@ -39,7 +41,6 @@ var styles = StyleSheet.create({
 class SelectedRequest extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
       dataSource: this.ds.cloneWithRows(this.props.photos),
@@ -47,12 +48,27 @@ class SelectedRequest extends React.Component {
     };
   }
 
+  handlePress(rowData) {
+    this.props.navigator.push({
+      title: rowData.username,
+      component: Profile,
+      passProps: {
+        user_id: rowData.user_id
+      }
+    });
+  }
+
   renderRow(rowData) {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: 'http://127.0.0.1:8888/photos/' + rowData.filename}} style={styles.image}/>
-          <Text style={styles.username}> Submitted by: {rowData.username} </Text>
+          <Image source={{uri: 'http://127.0.0.1:8888/photos/small/' + rowData.filename}} style={styles.image}/>
+          <Text style={styles.username}> Submitted by: </Text>
+          <TouchableHighlight
+            onPress={this.handlePress.bind(this, rowData)}
+            underlayColor='white'> 
+            <Text> {rowData.username} </Text>
+          </TouchableHighlight>
           <Text> {rowData.description} </Text>
         </View>
         <Separator/>
@@ -65,7 +81,7 @@ class SelectedRequest extends React.Component {
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow} />
+          renderRow={this.renderRow.bind(this)} />
       </View>
     )
   }

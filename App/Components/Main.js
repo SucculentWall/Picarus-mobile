@@ -3,6 +3,7 @@
 var React = require('react-native');
 var Gallery = require('./Gallery');
 var Requests = require('./Requests');
+var Profile = require('./Profile/app-profile');
 
 var {
   AppRegistry,
@@ -43,9 +44,7 @@ class Main extends React.Component {
         selected={this.state.selectedTab === 'favorites'}
         onPress={() => this.setTab('favorites')}
         systemIcon="favorites">
-          <View style={styles.tabContent}>
-            <Text style={styles.tabText}>Favorites</Text>
-          </View>
+          <Profile navigator={this.props.navigator} user_id='1'></Profile>
         </TabBarIOS.Item>
         <TabBarIOS.Item
         selected={this.state.selectedTab === 'more'}

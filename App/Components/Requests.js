@@ -91,6 +91,7 @@ class Requests extends React.Component {
   
 
   handlePress (rowData) {
+    console.log('requests navigator',this.props.navigator);
     this.setState({
       isLoading: true
     });
@@ -115,7 +116,6 @@ class Requests extends React.Component {
 
 
   renderRow(rowData) {
-    console.log(rowData);
     return (
       <View>
         <TouchableHighlight 
