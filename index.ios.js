@@ -5,7 +5,7 @@
 'use strict';
 
 var React = require('react-native');
-var Main = require('./App/Components/Main');
+var Login = require('./App/Components/Login');
 
 var {
   AppRegistry,
@@ -28,8 +28,8 @@ class PicarusMobile extends React.Component{
       <NavigatorIOS
       style={styles.container}
         initialRoute={{
-          title: 'Picarus',
-          component: Main
+          title: 'Login',
+          component: Login
         }} />
     );
   }
