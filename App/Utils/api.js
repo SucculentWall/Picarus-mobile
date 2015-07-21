@@ -19,8 +19,13 @@ var api = {
     id = id || '*';
     var url = `http://localhost:8888/api/requests/${id}`;
     return fetch(url).then((res) => res.json());
-  }
+  },
 
+  getUser(id) {
+    id = id || '*';
+    var url = `http://localhost:8888/api/users/${id}`;
+    return fetch(url).then((res) => res.json());
+  }
 
 }
 
