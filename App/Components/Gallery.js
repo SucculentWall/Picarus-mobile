@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var api = require('../Utils/api.js');
+var api = require('../utils/api.js');
 var Separator = require('./Helpers/Separator.js');
 var Profile = require('./Profile/app-profile');
 var Login = require('./Login.js');

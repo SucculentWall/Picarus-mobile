@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var Separator = require('../Helpers/Separator.js');
-var api = require('../../Utils/api.js');
+var api = require('../../utils/api.js');
 var ProfileComment = require('./profile-comment');
 var ProfileRequest = require('./profile-request');
 

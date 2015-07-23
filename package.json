@@ -6,6 +6,9 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
+    "es6-promise": "^2.3.0",
+    "events": "^1.0.2",
+    "object-assign": "^3.0.0",
     "react-native": "^0.7.1",
     "react-native-facebook-login": "^0.5.2"
   }
