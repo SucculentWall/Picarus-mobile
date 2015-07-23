@@ -1,8 +1,8 @@
 'use strict';
 
 var React = require('react-native');
-var api = require('../Utils/api.js');
-var Separator = require('./Helpers/Separator.js');
+var Separator = require('../Helpers/Separator.js');
+var SearchHeader = require('./search-header.js');
 
 var {
   View,
@@ -10,6 +10,7 @@ var {
   Text,
   ListView,
   StyleSheet,
+  NavigatorIOS
 } = React;
 
 var styles = StyleSheet.create({
@@ -20,7 +21,6 @@ var styles = StyleSheet.create({
     height: 350,
   },
   container: {
-    margin: 10,
     flex: 1,
     flexDirection: 'column',
   },
@@ -32,24 +32,29 @@ var styles = StyleSheet.create({
 });
 
 
-class Search extends React.Component {
+class SearchRequests extends React.Component {
   constructor(props) {
     console.log(props);
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
-      dataSource: this.ds.cloneWithRows(this.props.photos),
+      dataSource: this.ds.cloneWithRows(this.props.requests),
       error: ''
     };
+  }
+
+  renderHeader(){
+    return (
+      <SearchHeader photos={this.props.photos} requests={this.props.requests} navigator={this.props.navigator} />
+    )
   }
 
   renderRow(rowData) {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: 'http://127.0.0.1:8888/photos/' + rowData.filename}} style={styles.image}/>
+          <Text> {rowData.text} </Text>
           <Text style={styles.username}> Submitted by: {rowData.username} </Text>
-          <Text> {rowData.description} </Text>
         </View>
         <Separator/>
       </View>
@@ -58,13 +63,12 @@ class Search extends React.Component {
 
   render(){
     return (
-      <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow} />
-      </View>
-    )
+      <ListView style={styles.container}
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow} 
+        renderSectionHeader={this.renderHeader.bind(this)}/>
+    );
   }
 }
 
-module.exports = Search;
+module.exports = SearchRequests;
