@@ -45,7 +45,7 @@ class SearchGallery extends React.Component {
 
   renderHeader(){
     return (
-      <SearchHeader photos={this.props.photos} requests={this.props.requests} navigator={this.props.navigator} />
+      <SearchHeader />
     )
   }
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-// var Search = require('./Search.js');  // Moved to funtion scope to avoid cyclic dependency
+var AppActions = require('../../actions/app-actions.js');
 
 var {
   View,
@@ -31,18 +31,7 @@ var styles = StyleSheet.create({
 class SearchHeader extends React.Component {
 
   handlePress(tabName) {
-    var Search = require('./Search.js');
-
-    this.props.navigator.push({
-      title: tabName,
-      component: Search,
-      passProps: {
-        photos: this.props.photos, 
-        requests: this.props.requests,
-        tabName: tabName,
-        navigator: this.props.navigator
-      }
-    });
+    AppActions.changeSearchView(tabName);
   }
 
   render(){
