@@ -21,6 +21,7 @@ build/
 #*.ipa
 #*.xcuserstate
 #project.xcworkspace
+*.xcuserdatad/
 
 # node.js
 #

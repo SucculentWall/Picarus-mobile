@@ -3,7 +3,7 @@
 var React = require('react-native');
 var api = require('../Utils/api');
 var Separator = require('./Helpers/Separator');
-var Search = require('./Search');
+var Search = require('./Search/Search');
 var SelectedRequest = require('./SelectedRequest');
 
 var {
@@ -154,7 +154,12 @@ class Requests extends React.Component {
         this.props.navigator.push({
           title: "Search Results",
           component: Search,
-          passProps: {photos: res.photos, requests: res.requests}
+          passProps: {
+            photos: res.photos, 
+            requests: res.requests, 
+            tabName: 'photos',
+            navigator: this.props.navigator
+          }
         });
         this.setState({
           isLoading: false,
