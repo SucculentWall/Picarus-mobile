@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 // var PhotosStore = require('../../stores/app-photosStore.js')
-var Separator = require('../Helpers/Separator.js');
+var Separator = require('../helpers/separator.js');
 var RecentsHeader = require('./app-tabHeader.js');
 
 var {

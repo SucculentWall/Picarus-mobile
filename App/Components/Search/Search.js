@@ -2,9 +2,9 @@
 
 var React = require('react-native');
 var HeaderTabStore = require('../../stores/app-headerTabStore.js');
-var Separator = require('../Helpers/Separator.js');
-var Gallery = require('../Common/app-gallery.js');
-var Requests = require('../Common/app-requests.js');
+var Separator = require('../helpers/separator.js');
+var Gallery = require('../common/app-gallery.js');
+var Requests = require('../common/app-requests.js');
 
 var {
   View,

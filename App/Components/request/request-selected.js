@@ -1,9 +1,12 @@
 'use strict';
 
 var React = require('react-native');
-var api = require('../utils/api.js');
-var Separator = require('./Helpers/Separator.js');
-var Profile = require('./Profile/app-profile');
+var api = require('../../utils/api.js');
+var Separator = require('../helpers/separator.js');
+var Profile = require('../profile/app-profile');
+var CameraRollView = require('./request-cameraRollView');
+
+console.log('if this is an object, there is a circular reference issue:', Profile);
 
 var {
   View,
@@ -37,7 +40,6 @@ var styles = StyleSheet.create({
   }
 });
 
-
 class SelectedRequest extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,21 @@ class SelectedRequest extends React.Component {
       title: rowData.username,
       component: Profile,
       passProps: {
-        user_id: rowData.user_id
+        user_id: rowData.user_id,
+        navigator: this.props.navigator
+      }
+    });
+  }
+
+  cameraRoll() {
+    this.props.navigator.push({
+      title: 'Camera Roll',
+      component: CameraRollView,
+      passProps: {
+        // TODO: pass in request id and tags
+        // request_id:
+        // tags:
+        // navigator: this.props.navigator
       }
     });
   }
@@ -82,6 +98,11 @@ class SelectedRequest extends React.Component {
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)} />
+        <TouchableHighlight
+          onPress={this.cameraRoll.bind(this)}
+          underlayColor='white'>
+          <Text> Upload Photo </Text>
+          </TouchableHighlight>
       </View>
     )
   }

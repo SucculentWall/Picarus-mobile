@@ -23,6 +23,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		9331E1F71B61944100B722DB /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331E1F61B61940D00B722DB /* libRCTCamera.a */; };
 		944EAEED1B5DEC5C00319838 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 944EAEE31B5DEB4300319838 /* libRCTFBLogin.a */; };
 		944EAEF21B5DECCC00319838 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944EAEEE1B5DECCC00319838 /* Bolts.framework */; };
 		944EAEF31B5DECCC00319838 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944EAEEF1B5DECCC00319838 /* FBSDKCoreKit.framework */; };
@@ -108,6 +109,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		9331E1F51B61940D00B722DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9331E1F11B61940D00B722DB /* RCTCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RCTCamera;
+		};
 		944EAEE21B5DEB4300319838 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 944EAEDD1B5DEB4300319838 /* RCTFBLogin.xcodeproj */;
@@ -139,6 +147,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		9331E1F11B61940D00B722DB /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "node_modules/react-native-camera/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		944EAEDD1B5DEB4300319838 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		944EAEEE1B5DECCC00319838 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "node_modules/react-native-facebook-login/FacebookSDK/Bolts.framework"; sourceTree = "<group>"; };
 		944EAEEF1B5DECCC00319838 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "node_modules/react-native-facebook-login/FacebookSDK/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
@@ -158,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9331E1F71B61944100B722DB /* libRCTCamera.a in Frameworks */,
 				944EAEED1B5DEC5C00319838 /* libRCTFBLogin.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				944EAEF51B5DECCC00319838 /* FBSDKShareKit.framework in Frameworks */,
@@ -285,6 +295,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9331E1F11B61940D00B722DB /* RCTCamera.xcodeproj */,
 				944EAEDD1B5DEB4300319838 /* RCTFBLogin.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -329,6 +340,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* PicarusMobile.app */,
 				00E356EE1AD99517003FC87E /* PicarusMobileTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9331E1F21B61940D00B722DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9331E1F61B61940D00B722DB /* libRCTCamera.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,6 +428,10 @@
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
+				},
+				{
+					ProductGroup = 9331E1F21B61940D00B722DB /* Products */;
+					ProjectRef = 9331E1F11B61940D00B722DB /* RCTCamera.xcodeproj */;
 				},
 				{
 					ProductGroup = 944EAEDE1B5DEB4300319838 /* Products */;
@@ -528,6 +551,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9331E1F61B61940D00B722DB /* libRCTCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCamera.a;
+			remoteRef = 9331E1F51B61940D00B722DB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		944EAEE31B5DEB4300319838 /* libRCTFBLogin.a */ = {
@@ -651,6 +681,7 @@
 					"$(SRCROOT)/node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = PicarusMobile;
@@ -671,6 +702,7 @@
 					"$(SRCROOT)/node_modules/react-native/React/**",
 				);
 				INFOPLIST_FILE = iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = PicarusMobile;

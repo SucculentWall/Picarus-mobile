@@ -1,5 +1,5 @@
 var React = require('react-native');
-var Main = require('./Main');
+var Main = require('./main');
 var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
 

@@ -1,10 +1,10 @@
 'use strict';
 
 var React = require('react-native');
-var api = require('../utils/api');
-var Separator = require('./Helpers/Separator');
-var Search = require('./Search/Search');
-var SelectedRequest = require('./SelectedRequest');
+var api = require('../../utils/api');
+var Separator = require('../helpers/separator');
+var Search = require('../search/search');
+var SelectedRequest = require('./request-selected');
 
 var {
   View,

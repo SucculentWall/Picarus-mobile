@@ -25,8 +25,24 @@ var api = {
     id = id || '*';
     var url = `http://localhost:8888/api/users/${id}`;
     return fetch(url).then((res) => res.json());
-  }
+  },
 
-}
+  // TODO: size
+  addPhoto(photo, username, request_id, tags, description, size) {
+    var data = new FormData();
+    data.append('username', username);
+    data.append('request_id', request_id);
+    data.append('tags', JSON.stringify(tags));
+    data.append('description', description);
+    data.append('size', size);
+    data.append('photo', photo);
+    var url = `http://localhost:8888/api/photos`;
+    return fetch(url, {
+      method: 'post',
+      body: JSON.stringify(data)
+    }).then((res) => res.json());
+  },
+  
+};
 
 module.exports = api;

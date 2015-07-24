@@ -1,19 +1,19 @@
 'use strict';
 
 var React = require('react-native');
-var Separator = require('../Helpers/Separator.js');
+var Separator = require('../helpers/separator.js');
 var api = require('../../utils/api.js');
-var ProfileComment = require('./profile-comment');
-var ProfileRequest = require('./profile-request');
+// var ProfileComment = require('./profile-comment');
+// var ProfileRequest = require('./profile-request');
 
 var {
   View,
   Image,
   Text,
   ListView,
+  TouchableHighlight,
   StyleSheet,
   NavigatorIOS,
-  TouchableHighlight
 } = React;
 
 var styles = StyleSheet.create({
@@ -68,8 +68,8 @@ class Profile extends React.Component {
     var profileComments = [];
     if (state.requests) {
       for (var i = 0; i < state.requests.length; i++) {
-        profileRequests.push(<ProfileRequest navigator={this.props.navigator} data={state.requests[i]} />);
-        profileComments.push(<ProfileComment navigator={this.props.navigator} data={state.comments[i]} />);
+        // profileRequests.push(<ProfileRequest navigator={this.props.navigator} data={state.requests[i]} />);
+        // profileComments.push(<ProfileComment navigator={this.props.navigator} data={state.comments[i]} />);
       }
     // console.log(profileRequests); 
     // console.log(profileComments); 

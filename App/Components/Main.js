@@ -1,10 +1,10 @@
 'use strict';
 
 var React = require('react-native');
-var Gallery = require('./Gallery');
-var Recents = require('./Recents/Recents.js');
-var Requests = require('./Requests');
-var Profile = require('./Profile/app-profile');
+var Gallery = require('./gallery');
+var Recents = require('./recents/recents.js');
+var Requests = require('./request/app-request');
+var Profile = require('./profile/app-profile');
 
 var {
   AppRegistry,

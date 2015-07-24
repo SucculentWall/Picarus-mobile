@@ -11,7 +11,6 @@ var AppActions = {
     });
   },
 
-
   getRecents: function() {
     api.getAllPhotos()
       .then((data) => {
@@ -32,8 +31,12 @@ var AppActions = {
       }).catch((err) => {
         console.log('Request failed', err);
       });
-  }
+  },
 
-}
+  addPhoto: function(photo, username, request_id, tags, description, size) {
+    api.addPhoto(photo, username, request_id, tags, description, size);
+  },
+
+};
 
 module.exports = AppActions;
