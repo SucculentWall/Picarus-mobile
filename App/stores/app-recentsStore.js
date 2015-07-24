@@ -9,21 +9,15 @@ var CHANGE_EVENT = "change";
 var _photos = [];
 var _requests = [];
 
-var _showTab = 'photos';
-
-
-function _changeSearchView(tabName) {
-  _showTab = tabName;
+function _receivePhotos(data) {
+  _photos = data;
 }
 
-/////////////////////////////////////////////
-//// TODO: REFACTOR Search.js TO URSE SEARCHSTORE
-////
-//// CURRENTLY NOT USING SEARCHSTORE
-/////////////////////////////////////////////
+function _receiveRequests(data) {
+  _requests = data;
+}
 
-
-var SearchStore = objectAssign(EventEmitter.prototype, {
+var RecentsStore = objectAssign(EventEmitter.prototype, {
   emitChange: function(){
     this.emit(CHANGE_EVENT);
   },
@@ -39,15 +33,13 @@ var SearchStore = objectAssign(EventEmitter.prototype, {
   },
   
 
-  getState: function() {
-    return {
-      photos: _photos,
-      requests: _requests
-    }
+  getPhotos: function() {
+    return _photos;
   },
 
-  getActiveTab: function () {
-    return _showTab;
+
+  getRequests: function() {
+    return _requests;
   },
 
 
@@ -55,11 +47,15 @@ var SearchStore = objectAssign(EventEmitter.prototype, {
     
     switch(payload.actionType) {
 
-      case AppConstants.CHANGE_SEARCH_VIEW:
-        _changeSearchView(payload.data);
-        SearchStore.emitChange();
+      case AppConstants.RECEIVE_REQUESTS:
+        _receiveRequests(payload.data);
+        RecentsStore.emitChange();
         break;
 
+      case AppConstants.RECEIVE_PHOTOS:
+        _receivePhotos(payload.data);
+        RecentsStore.emitChange();
+        break;
 
       default:
         return true;
@@ -69,4 +65,4 @@ var SearchStore = objectAssign(EventEmitter.prototype, {
   })
 });
 
-module.exports = SearchStore;
+module.exports = RecentsStore;
