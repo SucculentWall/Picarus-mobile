@@ -5,25 +5,16 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = "change";
 
-
-var _photos = [];
-var _requests = [];
-
+// default to showing photos
 var _showTab = 'photos';
 
 
-function _changeSearchView(tabName) {
+function _changeTabView(tabName) {
   _showTab = tabName;
 }
 
-/////////////////////////////////////////////
-//// TODO: REFACTOR Search.js TO URSE SEARCHSTORE
-////
-//// CURRENTLY NOT USING SEARCHSTORE
-/////////////////////////////////////////////
 
-
-var SearchStore = objectAssign(EventEmitter.prototype, {
+var HeaderTabStore = objectAssign(EventEmitter.prototype, {
   emitChange: function(){
     this.emit(CHANGE_EVENT);
   },
@@ -37,14 +28,7 @@ var SearchStore = objectAssign(EventEmitter.prototype, {
   removeChangeListener: function(callback){
     this.removeListener(CHANGE_EVENT, callback)
   },
-  
 
-  getState: function() {
-    return {
-      photos: _photos,
-      requests: _requests
-    }
-  },
 
   getActiveTab: function () {
     return _showTab;
@@ -55,11 +39,10 @@ var SearchStore = objectAssign(EventEmitter.prototype, {
     
     switch(payload.actionType) {
 
-      case AppConstants.CHANGE_SEARCH_VIEW:
-        _changeSearchView(payload.data);
-        SearchStore.emitChange();
+      case AppConstants.CHANGE_TAB_VIEW:
+        _changeTabView(payload.data);
+        HeaderTabStore.emitChange();
         break;
-
 
       default:
         return true;
@@ -69,4 +52,4 @@ var SearchStore = objectAssign(EventEmitter.prototype, {
   })
 });
 
-module.exports = SearchStore;
+module.exports = HeaderTabStore;

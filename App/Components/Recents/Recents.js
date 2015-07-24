@@ -1,7 +1,9 @@
 'use strict';
 
 var React = require('react-native');
+var AppActions = require('../../actions/app-actions.js');
 var HeaderTabStore = require('../../stores/app-headerTabStore.js');
+var RecentsStore = require('../../stores/app-recentsStore.js');
 var Separator = require('../Helpers/Separator.js');
 var Gallery = require('../Common/app-gallery.js');
 var Requests = require('../Common/app-requests.js');
@@ -17,48 +19,55 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F5FCFF',
+    marginTop: 65,
+    flex: 1,
+    flexDirection: 'row',
   }
 });
 
 function getData (){
   return {
     tabName: HeaderTabStore.getActiveTab(),
+    photos: RecentsStore.getPhotos(),
+    requests: RecentsStore.getRequests()
   };
 };
 
 
-
 class Search extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
-      tabName: this.props.tabName || 'photos'
+      tabName: this.props.tabName || 'photos',
+      photos: RecentsStore.getPhotos(),
+      requests: RecentsStore.getRequests()
     };
   }
 
   _onChange() {
-    console.log('SETSTATE called on Search view');
+    console.log('SETSTATE called on Recents view');
     this.setState(getData());
   }
 
   componentDidMount() {
+    console.log('MOUNTED: Recents view');
+    AppActions.getRecents();
     HeaderTabStore.addChangeListener(this._onChange.bind(this));
   }
 
   componentWillUnmount() {
-    HeaderTabStore.removeChangeListener(this._onChange);
+    console.log('UNMOUNTED: Recents view');
+    HeaderTabStore.removeChangeListener(this._onChange.bind(this));
   }
 
   render(){
     if (this.state.tabName === 'photos') {
       return (
-        <Gallery photos={this.props.photos} />  
+        <Gallery photos={this.state.photos} />  
       );
     } else {
       return (
-        <Requests requests={this.props.requests} />
+        <Requests requests={this.state.requests} />
       );
     }
     

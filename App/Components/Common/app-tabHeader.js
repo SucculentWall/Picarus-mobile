@@ -13,6 +13,10 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   tabContainer: {
     flex: 1,
     padding: 5,
@@ -21,22 +25,21 @@ var styles = StyleSheet.create({
   },
   tabItem: {
     flex: 1,
-    flexDirection: 'row',
     fontSize: 20,
     textAlign: 'center',
   }
 });
 
 
-class SearchHeader extends React.Component {
+class Header extends React.Component {
 
   handlePress(tabName) {
-    AppActions.changeSearchView(tabName);
+    AppActions.changeTabView(tabName);
   }
 
   render(){
     return (
-      <View style={styles.tabContainer}>
+      <View style={styles.container}>
         <TouchableHighlight style={styles.tabContainer}
           onPress={this.handlePress.bind(this, 'photos')}
           underlayColor='white'> 
@@ -52,4 +55,4 @@ class SearchHeader extends React.Component {
   }
 }
 
-module.exports = SearchHeader;
+module.exports = Header;

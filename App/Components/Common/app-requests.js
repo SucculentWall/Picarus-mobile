@@ -1,8 +1,9 @@
 'use strict';
 
 var React = require('react-native');
+// var RequestsStore = require('../../stores/app-requestsStore.js')
 var Separator = require('../Helpers/Separator.js');
-var SearchHeader = require('./search-header.js');
+var RecentsHeader = require('./app-tabHeader.js');
 
 var {
   View,
@@ -31,21 +32,16 @@ var styles = StyleSheet.create({
   }
 });
 
-
-class SearchGallery extends React.Component {
+class Requests extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
+    console.log('app-requests props: ', props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
-    this.state = {
-      dataSource: this.ds.cloneWithRows(this.props.photos),
-      error: ''
-    };
   }
 
   renderHeader(){
     return (
-      <SearchHeader />
+      <RecentsHeader />
     )
   }
 
@@ -53,9 +49,8 @@ class SearchGallery extends React.Component {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: 'http://127.0.0.1:8888/photos/' + rowData.filename}} style={styles.image}/>
+          <Text> {rowData.text} </Text>
           <Text style={styles.username}> Submitted by: {rowData.username} </Text>
-          <Text> {rowData.description} </Text>
         </View>
         <Separator/>
       </View>
@@ -63,13 +58,17 @@ class SearchGallery extends React.Component {
   }
 
   render(){
+    var dataSource = this.ds.cloneWithRows(this.props.requests)
+
     return (
-      <ListView style={styles.container}
-        dataSource={this.state.dataSource}
-        renderRow={this.renderRow} 
-        renderSectionHeader={this.renderHeader.bind(this)}/>
+      <View style={styles.container}>
+        <ListView 
+          dataSource={dataSource}
+          renderRow={this.renderRow} 
+          renderSectionHeader={this.renderHeader.bind(this)}/>
+      </View>
     );
   }
 }
 
-module.exports = SearchGallery;
+module.exports = Requests;

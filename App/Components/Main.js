@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var Gallery = require('./Gallery');
+var Recents = require('./Recents/Recents.js');
 var Requests = require('./Requests');
 var Profile = require('./Profile/app-profile');
 
@@ -13,6 +14,14 @@ var {
   TabBarIOS,
   NavigatorIOS
 } = React;
+
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+  }
+});
 
 
 class Main extends React.Component {
@@ -28,23 +37,23 @@ class Main extends React.Component {
   render(){
     return (
       <TabBarIOS>
-        <TabBarIOS.Item
+        <TabBarIOS.Item style={styles.container}
         selected={this.state.selectedTab === 'recents'}
         onPress={() => this.setTab('recents')}
         systemIcon="recents">
-          <Gallery navigator={this.props.navigator}></Gallery>
+          <Recents navigator={this.props.navigator} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         selected={this.state.selectedTab === 'search'}
         onPress={() => this.setTab('search')}
         systemIcon="search">
-          <Requests navigator={this.props.navigator}></Requests>
+          <Requests navigator={this.props.navigator} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         selected={this.state.selectedTab === 'favorites'}
         onPress={() => this.setTab('favorites')}
         systemIcon="favorites">
-          <Profile navigator={this.props.navigator} user_id='1'></Profile>
+          <Profile navigator={this.props.navigator} user_id='1' />
         </TabBarIOS.Item>
         <TabBarIOS.Item
         selected={this.state.selectedTab === 'more'}
