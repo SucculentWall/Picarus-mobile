@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var api = require('../../utils/api.js');
-var SelectedRequest = require('../SelectedRequest');
+var SelectedRequest = require('../request/request-selected');
 
 var {
   View,
