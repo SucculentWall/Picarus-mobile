@@ -5,6 +5,7 @@ var HeaderTabStore = require('../../stores/app-headerTabStore.js');
 var Separator = require('../helpers/separator.js');
 var Gallery = require('../common/app-gallery.js');
 var Requests = require('../common/app-requests.js');
+var self;
 
 var {
   View,
@@ -31,8 +32,8 @@ function getData (){
 
 class Search extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
+    self = this;
     this.state = {
       tabName: this.props.tabName || 'photos'
     };
@@ -40,14 +41,16 @@ class Search extends React.Component {
 
   _onChange() {
     console.log('SETSTATE called on Search view');
-    this.setState(getData());
+    self.setState(getData());
   }
 
   componentDidMount() {
-    HeaderTabStore.addChangeListener(this._onChange.bind(this));
+    console.log('Mounted: HeaderTabStore');
+    HeaderTabStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
+    console.log('Unmounted: HeaderTabStore');
     HeaderTabStore.removeChangeListener(this._onChange);
   }
 

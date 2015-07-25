@@ -22,6 +22,7 @@ var styles = StyleSheet.create({
     height: 350,
   },
   container: {
+    marginTop: 64,
     flex: 1,
     flexDirection: 'column',
   },
@@ -59,11 +60,12 @@ class Gallery extends React.Component {
   }
 
   render(){
-    var dataSource = this.ds.cloneWithRows(this.props.photos)
+    var dataSource = this.ds.cloneWithRows(this.props.photos);
 
     return (
       <View style={styles.container}>
         <ListView 
+          automaticallyAdjustContentInsets={false}
           dataSource={dataSource}
           renderRow={this.renderRow} 
           renderSectionHeader={this.renderHeader.bind(this)}/>

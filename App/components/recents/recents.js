@@ -7,6 +7,7 @@ var RecentsStore = require('../../stores/app-recentsStore.js');
 var Separator = require('../helpers/separator.js');
 var Gallery = require('../common/app-gallery.js');
 var Requests = require('../common/app-requests.js');
+var self;
 
 var {
   View,
@@ -19,7 +20,7 @@ var {
 
 var styles = StyleSheet.create({
   container: {
-    marginTop: 65,
+    marginTop: 64,
     flex: 1,
     flexDirection: 'row',
   }
@@ -34,30 +35,34 @@ function getData (){
 };
 
 
-class Search extends React.Component {
+class Recents extends React.Component {
   constructor(props) {
     super(props);
+    self = this;
     this.state = {
       tabName: this.props.tabName || 'photos',
-      photos: RecentsStore.getPhotos(),
-      requests: RecentsStore.getRequests()
+      photos: [],
+      requests: []
     };
   }
 
   _onChange() {
+    console.log(self);
     console.log('SETSTATE called on Recents view');
-    this.setState(getData());
+    self.setState(getData());
   }
 
   componentDidMount() {
     console.log('MOUNTED: Recents view');
+    HeaderTabStore.addChangeListener(this._onChange);
+    RecentsStore.addChangeListener(this._onChange);
     AppActions.getRecents();
-    HeaderTabStore.addChangeListener(this._onChange.bind(this));
   }
 
   componentWillUnmount() {
     console.log('UNMOUNTED: Recents view');
-    HeaderTabStore.removeChangeListener(this._onChange.bind(this));
+    HeaderTabStore.removeChangeListener(this._onChange);
+    RecentsStore.removeChangeListener(this._onChange);
   }
 
   render(){
@@ -74,4 +79,4 @@ class Search extends React.Component {
   }
 }
 
-module.exports = Search;
+module.exports = Recents;

@@ -17,19 +17,19 @@ function _receiveRequests(data) {
   _requests = data;
 }
 
-var RecentsStore = objectAssign(EventEmitter.prototype, {
+var RecentsStore = objectAssign({},EventEmitter.prototype, {
   emitChange: function(){
     this.emit(CHANGE_EVENT);
   },
 
   
   addChangeListener: function(callback){
-    this.on(CHANGE_EVENT, callback)
+    this.on(CHANGE_EVENT, callback);
   },
 
   
   removeChangeListener: function(callback){
-    this.removeListener(CHANGE_EVENT, callback)
+    this.removeListener(CHANGE_EVENT, callback);
   },
   
 

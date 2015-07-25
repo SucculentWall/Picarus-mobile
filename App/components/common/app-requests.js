@@ -22,6 +22,7 @@ var styles = StyleSheet.create({
     height: 350,
   },
   container: {
+    marginTop: 64,
     flex: 1,
     flexDirection: 'column',
   },
@@ -63,6 +64,7 @@ class Requests extends React.Component {
     return (
       <View style={styles.container}>
         <ListView 
+          automaticallyAdjustContentInsets={false}
           dataSource={dataSource}
           renderRow={this.renderRow} 
           renderSectionHeader={this.renderHeader.bind(this)}/>
