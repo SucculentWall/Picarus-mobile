@@ -1,4 +1,9 @@
 var api = {
+  getUserInfo(token) {
+    var url = `https://graph.facebook.com/me?access_token=${token}`;
+    return fetch(url).then((res) => res.json());
+  },
+
   getAllPhotos() {
     var url = `http://localhost:8888/api/photos`;
     return fetch(url).then((res) => res.json());
