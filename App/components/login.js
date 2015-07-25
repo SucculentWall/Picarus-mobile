@@ -2,6 +2,7 @@ var React = require('react-native');
 var Main = require('./main');
 var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
+var api = require('../utils/api');
 
 var {
   View,
@@ -85,12 +86,16 @@ class Login extends React.Component{
             onLogin={function(data){
               console.log("Logged in!");
               console.log(data);
-              _this.setState({ user : data.credentials });
-              _this.props.navigator.push({
-                title: 'Picarus',
-                component: Main,
-                passProps: { user: _this.state.user }
-              });
+              api.getUserInfo(data.credentials.token)
+                .then(function(result) {
+                  data.credentials.name = result.name;
+                  _this.setState({ user : data.credentials });
+                  _this.props.navigator.push({
+                    title: 'Picarus',
+                    component: Main,
+                    passProps: { user: _this.state.user }
+                  });
+                });
             }}
             onLogout={function(){
               console.log("Logged out.");
@@ -99,7 +104,11 @@ class Login extends React.Component{
             onLoginFound={function(data){
               console.log("Existing login found.");
               console.log(data);
-              _this.setState({ user : data.credentials });
+              api.getUserInfo(data.credentials.token)
+                .then(function(result) {
+                  data.credentials.name = result.name;
+                  _this.setState({ user : data.credentials });
+                });
             }}
             onLoginNotFound={function(){
               console.log("No user logged in.");
