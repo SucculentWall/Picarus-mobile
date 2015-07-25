@@ -50,7 +50,7 @@ class UploadPhoto extends React.Component {
     console.log('uploadPhoto handleSubmit props ', this.props);
     var username = 'BOB'; // hardcode as BOB
     var request_id = this.props.request_id;
-    var photo = this.props.data.uri;
+    var photo = this.props.image;
     var tags = this.props.tags;
     var description = this.state.description;
     var size;
@@ -62,7 +62,7 @@ class UploadPhoto extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Image source={{uri: this.props.data.uri}} style={styles.image}/>
+        <Image source={{uri: this.props.image}} style={styles.image}/>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText={(description) => this.setState({description})}

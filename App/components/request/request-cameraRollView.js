@@ -72,7 +72,7 @@ class CameraRollView extends React.Component {
     component: UploadPhoto,
     passProps: {
       // data should have uri property
-      data: data,
+      image: data.uri,
       request_id: this.props.request_id,
       tags: this.props.tags,
       navigator: this.props.navigator
