@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
   },
   tabContainer: {
     flex: 1,
-    padding: 5,
+    padding:5,
     flexDirection: 'row',
     backgroundColor: '#F5FCFF',
   },

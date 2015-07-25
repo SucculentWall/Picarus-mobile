@@ -30,7 +30,7 @@ var styles = StyleSheet.create({
     height: 350,
   },
   container: {
-    marginTop: 65,
+    marginTop: 64,
     margin: 10,
     flex: 1,
     flexDirection: 'column',

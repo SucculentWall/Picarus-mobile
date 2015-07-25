@@ -46,7 +46,7 @@ var styles = StyleSheet.create({
     borderColor: '#fff',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: '#fff'
   }
 });
 
