@@ -44,10 +44,7 @@ var styles = StyleSheet.create({
   },
   button: {
     alignSelf: 'center',
-    borderColor: '#fff',
-    borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#fff'
   }
 });
 
@@ -90,6 +87,7 @@ class Login extends React.Component{
                 .then(function(result) {
                   data.credentials.name = result.name;
                   _this.setState({ user : data.credentials });
+                  console.log(data);
                   _this.props.navigator.push({
                     title: 'Picarus',
                     component: Main,
@@ -103,11 +101,12 @@ class Login extends React.Component{
             }}
             onLoginFound={function(data){
               console.log("Existing login found.");
-              console.log(data);
+              _this.setState({ user : data.credentials });
               api.getUserInfo(data.credentials.token)
                 .then(function(result) {
                   data.credentials.name = result.name;
                   _this.setState({ user : data.credentials });
+                  console.log(data);
                 });
             }}
             onLoginNotFound={function(){
