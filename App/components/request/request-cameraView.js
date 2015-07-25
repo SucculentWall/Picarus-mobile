@@ -70,12 +70,15 @@ class CameraView extends React.Component {
   _takePicture() {
     this.refs.cam.capture(function(err, data) {
       console.log(err, data);
-      this.props.navigator.push({
+      this.props.data.navigator.push({
       title: 'Submit Data',
       component: UploadPhoto,
       passProps: {
+        // data should have uri property
         data: data,
-        navigator: this.props.navigator
+        request_id: this.props.data.request_id,
+        tags: this.props.data.tags,
+        navigator: this.props.data.navigator
         }
       });
     });

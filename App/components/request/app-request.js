@@ -101,6 +101,7 @@ class Requests extends React.Component {
           title: rowData.text,
           component: SelectedRequest,
           passProps: {
+            request_id: res.id,
             photos: res.photos,
             tags: res.tags,
             user: res.user

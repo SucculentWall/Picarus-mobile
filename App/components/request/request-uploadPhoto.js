@@ -3,12 +3,12 @@
 var React = require('react-native');
 var api = require('../../utils/api.js');
 var AppActions = require('../../actions/app-actions');
-// TODO: photostore
 
 var {
   View,
   Image,
   Text,
+  TextInput,
   ListView,
   TouchableHighlight,
   StyleSheet,
@@ -41,28 +41,32 @@ class UploadPhoto extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: this.props.data.uri,
-      navigator: this.props.navigator,
+      description: '',
       error: ''
     };
   }
 
   handleSubmit() {
-    var username = '';
-    var request_id = 0;
-    var photo = this.state.image;
-    var tags = [];
-    var description = '';
+    console.log('uploadPhoto handleSubmit props ', this.props);
+    var username = 'BOB'; // hardcode as BOB
+    var request_id = this.props.request_id;
+    var photo = this.props.data.uri;
+    var tags = this.props.tags;
+    var description = this.state.description;
     var size;
     console.log(photo, username, request_id, tags, description, size);
     // AppActions.addPhoto(photo, username, request_id, tags, description, size);
-    this.state.navigator.popN(2);
+    this.props.navigator.popN(2);
   }
 
   render(){
     return (
       <View style={styles.container}>
-        <Image source={{uri: this.state.image}} style={styles.image}/>
+        <Image source={{uri: this.props.data.uri}} style={styles.image}/>
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(description) => this.setState({description})}
+          value={this.state.description}/>
         <TouchableHighlight
           onPress={this.handleSubmit.bind(this)}
           underlayColor='white'>
