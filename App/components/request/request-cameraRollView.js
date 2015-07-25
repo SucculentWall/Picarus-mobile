@@ -71,7 +71,10 @@ class CameraRollView extends React.Component {
     title: 'Submit Data',
     component: UploadPhoto,
     passProps: {
-      data: data,
+      // data should have uri property
+      image: data.uri,
+      request_id: this.props.request_id,
+      tags: this.props.tags,
       navigator: this.props.navigator
       }
     });
@@ -107,7 +110,7 @@ class CameraRollView extends React.Component {
     )
     var NotRoll = (
       <View style={styles.margintop}>
-        <CameraView />
+        <CameraView data={this.props} />
         <TouchableHighlight
           onPress={this.takeNewPhoto.bind(this)}
           underlayColor='white'> 

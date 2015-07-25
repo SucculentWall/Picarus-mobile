@@ -38,23 +38,6 @@ class CameraView extends React.Component {
     };
   }
 
-  render() {
-
-    return (
-      <Camera
-        ref="cam"
-        style={styles.container}
-        onBarCodeRead={this._onBarCodeRead}
-        type={this.state.cameraType}>
-        <TouchableHighlight onPress={this._switchCamera}>
-          <Text>Switch Camera</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._takePicture}>
-          <Text>Upload Picture</Text>
-        </TouchableHighlight>
-      </Camera>
-    );
-  }
 
   _onBarCodeRead(e) {
     console.log(e);
@@ -68,17 +51,37 @@ class CameraView extends React.Component {
   }
 
   _takePicture() {
+    var context = this.props.data;
     this.refs.cam.capture(function(err, data) {
-      console.log(err, data);
-      this.props.navigator.push({
+      context.navigator.push({
       title: 'Submit Data',
       component: UploadPhoto,
       passProps: {
-        data: data,
-        navigator: this.props.navigator
+        image: data,
+        request_id: context.request_id,
+        tags: context.tags,
+        navigator: context.navigator
         }
       });
     });
+  }
+
+  render() {
+
+    return (
+      <Camera
+        ref="cam"
+        style={styles.container}
+        onBarCodeRead={this._onBarCodeRead}
+        type={this.state.cameraType}>
+        <TouchableHighlight onPress={this._switchCamera.bind(this)}>
+          <Text>Switch Camera</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={this._takePicture.bind(this)}>
+          <Text>Upload Picture</Text>
+        </TouchableHighlight>
+      </Camera>
+    );
   }
 
 }

@@ -66,10 +66,9 @@ class SelectedRequest extends React.Component {
       title: 'Camera Roll',
       component: CameraRollView,
       passProps: {
-        // TODO: pass in request id and tags
-        // request_id:
-        // tags:
-        // navigator: this.props.navigator
+        request_id: this.props.request_id,
+        tags: this.props.tags,
+        navigator: this.props.navigator
       }
     });
   }
