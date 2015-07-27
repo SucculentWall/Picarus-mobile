@@ -33,6 +33,19 @@ var AppActions = {
       });
   },
 
+  getSearch: function (query) {
+    api.getSearch(query)
+      .then((data) => {
+        console.log('AppActions.getSearch data result: ', data);
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.RECEIVE_SEARCH_RESULTS,
+          data: data
+        }).catch((err) => {
+          console.log('getSearch request failed.  Error: ', err);
+        });
+      });
+  },
+
   addPhoto: function(photo, username, request_id, tags, description, size) {
     api.addPhoto(photo, username, request_id, tags, description, size);
   },
