@@ -3,6 +3,7 @@
 var React = require('react-native');
 var api = require('../../utils/api.js');
 var AppActions = require('../../actions/app-actions');
+var AuthStore = require('../../stores/app-authStore');
 
 var {
   View,
@@ -48,14 +49,14 @@ class UploadPhoto extends React.Component {
 
   handleSubmit() {
     console.log('uploadPhoto handleSubmit props ', this.props);
-    var username = 'BOB'; // hardcode as BOB
+    var username = AuthStore.getUsername();
     var request_id = this.props.request_id;
     var photo = this.props.image;
     var tags = this.props.tags;
     var description = this.state.description;
     var size;
     console.log(photo, username, request_id, tags, description, size);
-    // AppActions.addPhoto(photo, username, request_id, tags, description, size);
+    AppActions.addPhoto(photo, username, request_id, tags, description, size);
     this.props.navigator.popN(2);
   }
 

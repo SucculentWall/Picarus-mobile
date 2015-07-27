@@ -5,6 +5,7 @@ var HeaderTabStore = require('../../stores/app-headerTabStore.js');
 var Separator = require('../helpers/separator.js');
 var Gallery = require('../common/app-gallery.js');
 var Requests = require('../common/app-requests.js');
+
 var self;
 
 var {
