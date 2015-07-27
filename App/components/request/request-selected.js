@@ -7,8 +7,6 @@ var Separator = require('../helpers/separator.js');
 var Profile = require('../profile/app-profile');
 var CameraRollView = require('./request-cameraRollView');
 
-console.log('if this is an object, there is a circular reference issue:', Profile);
-
 var {
   View,
   Image,

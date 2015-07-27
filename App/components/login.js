@@ -3,6 +3,7 @@ var Main = require('./main');
 var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
 var api = require('../utils/api');
+var AppActions = require('../actions/app-actions.js');
 
 var {
   View,
@@ -82,35 +83,29 @@ class Login extends React.Component{
             permissions={["email","user_friends"]}
             onLogin={function(data){
               console.log("Logged in!");
-              console.log(data);
-              api.getUserInfo(data.credentials.token)
-                .then(function(result) {
-                  data.credentials.name = result.name;
-                  _this.setState({ user : data.credentials });
-                  console.log(data);
-                  _this.props.navigator.push({
-                    title: 'Picarus',
-                    component: Main,
-                    passProps: { user: _this.state.user }
-                  });
-                });
+              AppActions.loggedIn(data.credentials);
+              _this.setState({ user : data.credentials });
+
+              _this.props.navigator.push({
+                title: 'Picarus',
+                component: Main,
+                passProps: { user: _this.state.user }
+              });
             }}
             onLogout={function(){
               console.log("Logged out.");
+              AppActions.notLoggedIn();
               _this.setState({ user : null });
             }}
             onLoginFound={function(data){
               console.log("Existing login found.");
+              AppActions.loggedIn(data.credentials);
               _this.setState({ user : data.credentials });
-              api.getUserInfo(data.credentials.token)
-                .then(function(result) {
-                  data.credentials.name = result.name;
-                  _this.setState({ user : data.credentials });
-                  console.log(data);
-                });
+
             }}
             onLoginNotFound={function(){
               console.log("No user logged in.");
+              AppActions.notLoggedIn();
               _this.setState({ user : null });
             }}
             onError={function(data){

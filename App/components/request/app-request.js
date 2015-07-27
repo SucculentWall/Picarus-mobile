@@ -5,6 +5,7 @@ var api = require('../../utils/api');
 var Separator = require('../helpers/separator');
 var Search = require('../search/search');
 var SelectedRequest = require('./request-selected');
+var MakeRequest = require('./request-makeRequest');
 
 var {
   View,
@@ -192,6 +193,7 @@ class Requests extends React.Component {
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
           renderHeader={this.renderHeader} />
+        <MakeRequest />
       </View>
     )
   }
