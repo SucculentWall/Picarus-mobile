@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-var Gallery = require('./gallery');
 var Recents = require('./recents/recents.js');
 var Requests = require('./request/app-request');
 var Profile = require('./profile/app-profile');

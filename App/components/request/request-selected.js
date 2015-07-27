@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var AppConstants = require('../../constants/app-constants.js');
 var api = require('../../utils/api.js');
 var Separator = require('../helpers/separator.js');
 var Profile = require('../profile/app-profile');
@@ -77,7 +78,7 @@ class SelectedRequest extends React.Component {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: 'http://127.0.0.1:8888/photos/small/' + rowData.filename}} style={styles.image}/>
+          <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>
           <Text style={styles.username}> Submitted by: </Text>
           <TouchableHighlight
             onPress={this.handlePress.bind(this, rowData)}

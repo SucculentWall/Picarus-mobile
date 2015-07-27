@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-// var PhotosStore = require('../../stores/app-photosStore.js')
+var AppConstants = require('../../constants/app-constants.js');
 var Separator = require('../helpers/separator.js');
 var RecentsHeader = require('./app-tabHeader.js');
 
@@ -50,7 +50,7 @@ class Gallery extends React.Component {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: 'http://127.0.0.1:8888/photos/' + rowData.filename}} style={styles.image}/>
+          <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>
           <Text style={styles.username}> Submitted by: {rowData.username} </Text>
           <Text> {rowData.description} </Text>
         </View>
