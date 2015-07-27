@@ -65,6 +65,7 @@ class Requests extends React.Component {
       <View style={styles.container}>
         <ListView 
           automaticallyAdjustContentInsets={false}
+          contentInset={{bottom:49}}
           dataSource={dataSource}
           renderRow={this.renderRow} 
           renderSectionHeader={this.renderHeader.bind(this)}/>
