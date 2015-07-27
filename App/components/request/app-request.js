@@ -146,29 +146,15 @@ class Requests extends React.Component {
     })
   }
   handleSubmit(){
-    this.setState({
-      isLoading: true
+    this.props.navigator.push({
+      title: "Search Results",
+      component: Search,
+      passProps: {
+        searchQuery: this.state.search,
+        tabName: 'photos',
+        navigator: this.props.navigator
+      }
     });
-    api.getSearch(this.state.search)
-      .then((res) => {
-        console.log(this.props);
-        console.log(res);
-        this.props.navigator.push({
-          title: "Search Results",
-          component: Search,
-          passProps: {
-            photos: res.photos, 
-            requests: res.requests, 
-            tabName: 'photos',
-            navigator: this.props.navigator
-          }
-        });
-        this.setState({
-          isLoading: false,
-          error: false,
-          search: ''
-        });
-      });
   }
 
   render(){

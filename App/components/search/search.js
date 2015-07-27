@@ -1,7 +1,9 @@
 'use strict';
 
 var React = require('react-native');
+var AppActions = require('../../actions/app-actions.js');
 var HeaderTabStore = require('../../stores/app-headerTabStore.js');
+var SearchStore = require('../../stores/app-searchStore.js');
 var Separator = require('../helpers/separator.js');
 var Gallery = require('../common/app-gallery.js');
 var Requests = require('../common/app-requests.js');
@@ -26,6 +28,8 @@ var styles = StyleSheet.create({
 function getData (){
   return {
     tabName: HeaderTabStore.getActiveTab(),
+    photos: SearchStore.getPhotos(),
+    requests: SearchStore.getRequests()
   };
 };
 
@@ -36,33 +40,39 @@ class Search extends React.Component {
     super(props);
     self = this;
     this.state = {
-      tabName: this.props.tabName || 'photos'
+      tabName: this.props.tabName || 'photos',
+      photos: [],
+      requests: []
     };
   }
 
   _onChange() {
+    console.log(self);
     console.log('SETSTATE called on Search view');
     self.setState(getData());
   }
 
   componentDidMount() {
-    console.log('Mounted: HeaderTabStore');
+    console.log('MOUNTED: Search view');
+    AppActions.getSearch(this.props.searchQuery);
+    SearchStore.addChangeListener(this._onChange);
     HeaderTabStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    console.log('Unmounted: HeaderTabStore');
+    console.log('UNMOUNTED: Search view');
+    SearchStore.removeChangeListener(this._onChange);
     HeaderTabStore.removeChangeListener(this._onChange);
   }
 
   render(){
     if (this.state.tabName === 'photos') {
       return (
-        <Gallery photos={this.props.photos} />  
+        <Gallery photos={this.state.photos} />  
       );
     } else {
       return (
-        <Requests requests={this.props.requests} />
+        <Requests requests={this.state.requests} />
       );
     }
     
