@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var AppConstants = require('../../constants/app-constants.js');
 var Separator = require('../helpers/separator.js');
 var api = require('../../utils/api.js');
 // var ProfileComment = require('./profile-comment');
@@ -76,7 +77,7 @@ class Profile extends React.Component {
     }
     return (
       <View>
-        <Image source={{uri: 'http://127.0.0.1:8888/img/' + state.avatar}} style={styles.avatar}/>
+        <Image source={{uri: AppConstants.PHOTOS_HOST + state.avatar}} style={styles.avatar}/>
         <Separator/>
         <Text> Recent Requests </Text>
         {profileRequests}
@@ -93,7 +94,7 @@ class Profile extends React.Component {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: 'http://127.0.0.1:8888/photos/small/' + rowData.filename}} style={styles.image}/>
+          <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>
           <Text> {rowData.description} </Text>
         </View>
         <Separator/>
