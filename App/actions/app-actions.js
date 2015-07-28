@@ -51,7 +51,10 @@ var AppActions = {
   },
 
   addRequest: function(text, username, tags) {
-    api.addRequest(text, username, tags);
+    api.addRequest(text, username, tags)
+      .then((result) => {
+        AppActions.getRecents();
+      });
   },
 
   loggedIn: function(data) {

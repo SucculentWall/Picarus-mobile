@@ -6,6 +6,8 @@ var Separator = require('../helpers/separator');
 var Search = require('../search/search');
 var SelectedRequest = require('./request-selected');
 var MakeRequest = require('./request-makeRequest');
+var RecentsStore = require('../../stores/app-recentsStore');
+var AppActions = require('../../actions/app-actions');
 
 var {
   View,
@@ -66,10 +68,14 @@ var styles = StyleSheet.create({
 
 });
 
+function getData (){
+  return RecentsStore.getRequests();
+}
 
 class Requests extends React.Component {
   constructor(props) {
     super(props);
+    self = this;
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
       dataSource: this.ds.cloneWithRows([]),
@@ -78,18 +84,17 @@ class Requests extends React.Component {
     };
   }
 
-  componentDidMount() {
-    api.getAllRequests()
-      .then((data) => {
-        this.setState({
-          dataSource: this.ds.cloneWithRows(data)
-        });
-      }).catch((err) => {
-        console.log('Request failed', err);
-        this.setState({error});
-      });
+  _onChange() {
+    var data = getData();
+    self.setState({dataSource: self.ds.cloneWithRows(data)});
+    console.log('getData', self.state);
   }
-  
+
+  componentDidMount() {
+    RecentsStore.addChangeListener(this._onChange);
+    var data = getData();
+    this.setState({dataSource: this.ds.cloneWithRows(data)});
+  }
 
   handlePress (rowData) {
     console.log('requests navigator',this.props.navigator);
@@ -145,6 +150,7 @@ class Requests extends React.Component {
       search: event.nativeEvent.text
     })
   }
+
   handleSubmit(){
     this.props.navigator.push({
       title: "Search Results",

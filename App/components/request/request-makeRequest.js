@@ -30,8 +30,8 @@ class MakeRequest extends React.Component {
 
   handleSubmit() {
     var newRequest = this.state.newRequest;
+    if (!newRequest.length) return;
     var username = AuthStore.getUsername();
-
     var tagRegEx = /\S*#(?:\[[^\]]+\]|\S+)/ig;
     var tags = newRequest.match(tagRegEx);
     var refinedTags;
