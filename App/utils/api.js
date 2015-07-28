@@ -12,6 +12,11 @@ var api = {
     return fetch(url).then((res) => res.json());
   },
 
+  getInfoForPhoto(photoId) {
+    var url = `${AppConstants.API_URL}/api/comments/photo/${photoId}`;
+    return fetch(url).then((res) => res.json());
+  },
+
   getAllRequests() {
     var url = `${AppConstants.API_URL}/api/requests`;
     return fetch(url).then((res) => res.json());

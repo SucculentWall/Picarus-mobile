@@ -46,6 +46,19 @@ var AppActions = {
       });
   },
 
+  getInfoForPhoto: function(photoId) {
+    console.log('getInfoForPhoto fired with photoId: ', photoId);
+    api.getInfoForPhoto(photoId)
+      .then((data) => {
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.RECEIVE_PHOTO,
+          data: data
+        }).catch((err) => {
+          console.log('getInfoForPhoto failed.  Error: ', err);
+        });
+      });
+  },
+
   addPhoto: function(photo, username, request_id, tags, description, size) {
     api.addPhoto(photo, username, request_id, tags, description, size);
   },

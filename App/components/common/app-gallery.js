@@ -4,6 +4,7 @@ var React = require('react-native');
 var AppConstants = require('../../constants/app-constants.js');
 var Separator = require('../helpers/separator.js');
 var RecentsHeader = require('./app-tabHeader.js');
+var Photo = require('../photo/app-photo.js');
 
 var {
   View,
@@ -11,7 +12,8 @@ var {
   Text,
   ListView,
   StyleSheet,
-  NavigatorIOS
+  NavigatorIOS,
+  TouchableHighlight
 } = React;
 
 var styles = StyleSheet.create({
@@ -40,6 +42,16 @@ class Gallery extends React.Component {
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
   }
 
+  handlePress (rowData) {
+    this.props.navigator.push({
+      title: 'Photo',
+      component: Photo,
+      passProps: {
+        photoId: rowData.id
+      }
+    });
+  }
+
   renderHeader(){
     return (
       <RecentsHeader />
@@ -50,9 +62,18 @@ class Gallery extends React.Component {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>
+
+          <TouchableHighlight 
+            onPress={this.handlePress.bind(this, rowData)}
+            underlayColor='#384846' >
+            <Image 
+             source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} 
+             style={styles.image} />
+          </TouchableHighlight>
+
           <Text style={styles.username}> Submitted by: {rowData.username} </Text>
           <Text> {rowData.description} </Text>
+
         </View>
         <Separator/>
       </View>
@@ -68,7 +89,7 @@ class Gallery extends React.Component {
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
           dataSource={dataSource}
-          renderRow={this.renderRow} 
+          renderRow={this.renderRow.bind(this)} 
           renderSectionHeader={this.renderHeader.bind(this)}/>
       </View>
     );
