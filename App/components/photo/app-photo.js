@@ -37,6 +37,11 @@ var styles = StyleSheet.create({
     margin: 10,
     flex: 1,
     flexDirection: 'column',
+  },
+    username: {
+    color: '#523A54',
+    textAlign: 'right',
+    fontSize: 10
   }
 });
 
@@ -105,7 +110,7 @@ class Photo extends React.Component {
       <View>
         <View style={styles.rowContainer}>
           <Text> {rowData.text} </Text>
-          <Text> Submitted by: {rowData.username} </Text>
+          <Text style={styles.username}> Submitted by: {rowData.username} </Text>
         </View>
       <Separator />
       </View>
