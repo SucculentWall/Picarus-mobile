@@ -44,7 +44,7 @@ class Gallery extends React.Component {
 
   handlePress (rowData) {
     this.props.navigator.push({
-      title: 'Photo',
+      title: 'Photo by ' + rowData.username,
       component: Photo,
       passProps: {
         photoId: rowData.id

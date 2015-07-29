@@ -51,7 +51,9 @@ class Photo extends React.Component {
   constructor(props) {
     super(props);
     self = this;
-    this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+    self.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
+    var comms = getData().photoObj.comments;
+    console.log('these are comms: ', comms);
     self.state = {
       comments: getData().photoObj.comments || [],
       filename: getData().photoObj.filename || '',
@@ -59,14 +61,24 @@ class Photo extends React.Component {
       likes: getData().photoObj.likes || 0,
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
-      dataSource: this.ds.cloneWithRows([]),
+      dataSource: self.ds.cloneWithRows([]),
       error: ''
     }
   }
 
   _onChange() {
     self.setState({
-      filename: getData().photoObj.filename
+      filename: getData().photoObj.filename,
+      comments: getData().photoObj.comments,
+      id: getData().photoObj.id,
+      likes: getData().photoObj.likes,
+      tags: getData().photoObj.tags,
+      username: getData().photoObj.username
+      // error: ''
+    });
+    console.log('here are comments ', self.state.comments, self.state.dataSource);
+    self.setState({
+      dataSource: self.ds.cloneWithRows(self.state.comments)
     });
   }
 
@@ -83,66 +95,34 @@ class Photo extends React.Component {
   renderHeader(state){
     return (
       <View>
-        <Text>HEADER</Text>
+        <Text> {self.state.comments.length} comments </Text>
       </View>
     );
-    // TODO: render photo image and description
-
-    // var profileRequests = [];
-    // var profileComments = [];
-    // if (state.requests) {
-    //   for (var i = 0; i < state.requests.length; i++) {
-    //     // profileRequests.push(<ProfileRequest navigator={this.props.navigator} data={state.requests[i]} />);
-    //     // profileComments.push(<ProfileComment navigator={this.props.navigator} data={state.comments[i]} />);
-    //   }
-    // // console.log(profileRequests); 
-    // // console.log(profileComments); 
-    // }
-    // return (
-    //   <View>
-    //     <Image source={{uri: AppConstants.PHOTOS_HOST + state.avatar}} style={styles.avatar}/>
-    //     <Separator/>
-    //     <Text> Recent Requests </Text>
-    //     {profileRequests}
-    //     <Separator/>
-    //     <Text> Recent Comments </Text>
-    //     {profileComments}
-    //     <Separator/>
-    //     <Text> Recent Photos </Text>
-    //   </View>
-    // );
   }
 
   renderRow(rowData) {
     return (
       <View>
-        <Text>renderRow</Text>
+        <View style={styles.rowContainer}>
+          <Text> {rowData.text} </Text>
+          <Text> Submitted by: {rowData.username} </Text>
+        </View>
+      <Separator />
       </View>
     );
-    // TODO render comments
-
-    // return (
-    //   <View>
-    //     <View style={styles.rowContainer}>
-    //       <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>
-    //       <Text> {rowData.description} </Text>
-    //     </View>
-    //     <Separator/>
-    //   </View>
-    // )
   }
 
   render(){
     return (
       <View style={styles.container}>
-        {/*<Text> {this.state.username} </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderHeader={this.renderHeader.bind(this, this.state)}
-          renderRow={this.renderRow}/>*/}
-        <Text> image filename is {self.state.filename}</Text>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
-
+        <Text> {self.state.likes} likes</Text>
+        <ListView 
+          automaticallyAdjustContentInsets={false}
+          contentInset={{bottom:49}}
+          dataSource={self.state.dataSource} 
+          renderHeader={self.renderHeader}
+          renderRow={self.renderRow} />
       </View>
     )
   }
