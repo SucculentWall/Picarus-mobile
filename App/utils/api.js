@@ -79,11 +79,12 @@ var api = {
   
   },
 
-  findOrCreateUser(FacebookId, username) {
+  findOrCreateUser(FacebookId, username, token) {
     var url = `${AppConstants.API_URL}/api/users`;
     var data = {
       FacebookId: FacebookId,
-      username: username
+      username: username,
+      access_token: token
     };
     return fetch(url, {
       method: 'POST',
