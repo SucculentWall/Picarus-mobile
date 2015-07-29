@@ -71,9 +71,10 @@ var AppActions = {
   },
 
   loggedIn: function(data) {
+    console.log('loggedIn data: ', data);
     api.getUserInfo(data.token)
       .then((result) => {
-        return api.findOrCreateUser(result.id, result.name);
+        return api.findOrCreateUser(result.id, result.name, data.token);
       })
       .then((result) => {
         data.username = result.username;
