@@ -52,18 +52,21 @@ class Main extends React.Component {
           systemIcon="recents">
             <Recents navigator={this.props.navigator} />
           </TabBarIOS.Item>
+
           <TabBarIOS.Item
           selected={this.state.selectedTab === 'search'}
           onPress={() => this.setTab('search')}
           systemIcon="search">
             <Requests navigator={this.props.navigator} />
           </TabBarIOS.Item>
+
           <TabBarIOS.Item
           selected={this.state.selectedTab === 'favorites'}
           onPress={() => this.setTab('favorites')}
           systemIcon="favorites">
             <Profile navigator={this.props.navigator} user_id='1' />
           </TabBarIOS.Item>
+          
           <TabBarIOS.Item
           selected={this.state.selectedTab === 'more'}
           onPress={() => this.setTab('more')}

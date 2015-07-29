@@ -22,21 +22,27 @@ var styles = StyleSheet.create({
   },
   title: {
     backgroundColor: 'rgba(0,0,0,0)',
-    marginBottom: 150,
+    marginTop: 0,
     color: '#fff',
     fontSize: 50,
+    fontWeight: '200',
     textAlign: 'center'
   },
   continue: {
     height: 30,
-    margin: 100,
+    marginTop: 20,
+    marginLeft: 105,
+    marginRight: 105,
+    // backgroundColor: '#FF6EB4',
     backgroundColor: '#4F7CAC',
     alignItems: 'center',
     borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#fff'
+    borderWidth: 0.3,
+    // // borderColor: '#4F7CAC'
+    borderColor: 'pink'
   },
   logintext: {
+    fontWeight: '200',
     fontSize: 20,
     color: '#fff'
   },  
@@ -44,8 +50,18 @@ var styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0)'
   },
   button: {
+    marginTop: 30,
     alignSelf: 'center',
-    borderWidth: 1,
+    borderWidth: 0,
+    marginBottom: 110
+  },
+  filler: {
+    height: 30,
+    marginTop: 20,
+    marginLeft: 105,
+    marginRight: 105,
+    marginBottom: 110
+
   }
 });
 
@@ -76,9 +92,11 @@ class Login extends React.Component{
           { this.state.user ? <TouchableHighlight 
             style={styles.continue}
             onPress={_this.handlePress.bind(_this)}
-            underlayColor='#fff'>
-            <Text style={styles.logintext}> Continue! </Text>
-          </TouchableHighlight> : null }
+            underlayColor='#4F8CAC'>
+            <Text style={styles.logintext}> Go </Text>
+          </TouchableHighlight> : <View style={styles.filler}></View> }
+
+
           <FBLogin style={styles.button}
             permissions={["email","user_friends"]}
             onLogin={function(data){
