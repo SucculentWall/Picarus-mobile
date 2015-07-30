@@ -87,7 +87,7 @@ class Requests extends React.Component {
   _onChange() {
     var data = getData();
     self.setState({dataSource: self.ds.cloneWithRows(data)});
-    console.log('getData', self.state);
+    console.log('SETSTATE called on app-request: ', self.state);
   }
 
   componentDidMount() {
@@ -98,27 +98,13 @@ class Requests extends React.Component {
 
   handlePress (rowData) {
     console.log('requests navigator',this.props.navigator);
-    this.setState({
-      isLoading: true
+    this.props.navigator.push({
+      title: rowData.text,
+      component: SelectedRequest,
+      passProps: {
+        request_id: rowData.id,
+      }
     });
-    api.getRequest(rowData.id)
-      .then((res) => {
-        this.props.navigator.push({
-          title: rowData.text,
-          component: SelectedRequest,
-          passProps: {
-            request_id: res.id,
-            photos: res.photos,
-            tags: res.tags,
-            user: res.user
-          }
-        });
-        this.setState({
-          isLoading: false,
-          error: false,
-          search: ''
-        });
-      });
   }
 
 

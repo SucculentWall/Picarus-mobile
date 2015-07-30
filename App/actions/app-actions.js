@@ -33,6 +33,19 @@ var AppActions = {
       });
   },
 
+  getRequest: function (requestId) {
+    api.getRequest(requestId)
+      .then((data) => {
+        console.log('AppActions.getRequest data result: ', data);
+        AppDispatcher.handleViewAction({
+          actionType: AppConstants.RECEIVE_REQUEST,
+          data: data
+        }).catch((err) => {
+          console.log('getSearch request failed.  Error: ', err);
+        });
+      });
+  },
+
   getSearch: function (query) {
     api.getSearch(query)
       .then((data) => {

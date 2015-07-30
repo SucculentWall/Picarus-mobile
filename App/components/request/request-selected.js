@@ -2,10 +2,15 @@
 
 var React = require('react-native');
 var AppConstants = require('../../constants/app-constants.js');
+var AppActions = require('../../actions/app-actions.js');
+var RequestStore = require('../../stores/app-requestStore.js');
 var api = require('../../utils/api.js');
 var Separator = require('../helpers/separator.js');
 var Profile = require('../profile/app-profile');
+var Photo = require('../photo/app-photo.js');
 var CameraRollView = require('./request-cameraRollView');
+
+var self;
 
 var {
   View,
@@ -28,26 +33,79 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
+  row: {
+    flexDirection: 'row',
+  },
+  rowSpaced: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  pullRight: {
+    textAlign: 'right',
+  },
   title: {
-    height: 40,
     backgroundColor: '#5F4461',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    padding: 5,
   },
   titleText: {
     color: '#fff',
+    fontSize: 20,
     alignSelf: 'center'
+  },
+  subtitle: {
+    color: '#fff',
+  },
+  subtitleRight: {
+    color: '#fff',
+    textAlign: 'right',
   }
 });
 
+var getData = function () {
+  var result = {
+    photos: RequestStore.getPhotos(),
+    id: RequestStore.getId(),
+    username: RequestStore.getUsername(),
+    userId: RequestStore.getUserId(),
+    tags: RequestStore.getTags(),
+    text: RequestStore.getText()
+  };
+  return result;
+}
+
+
 class SelectedRequest extends React.Component {
+
   constructor(props) {
     super(props);
+    self = this;
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
-      dataSource: this.ds.cloneWithRows(this.props.photos),
-      error: ''
+      photos: [],
+      username: '',
+      userId: null,
+      tags: [],
+      text: ''
     };
   }
+
+  _onChange() {
+    self.setState(getData());
+    console.log('SETSTATE called on Request-Selected: ', self.state);
+  }
+
+  componentDidMount() {
+    console.log('MOUNTED: Request-Selected view');
+    RequestStore.addChangeListener(this._onChange);
+    AppActions.getRequest(this.props.request_id);
+  }
+
+  componentWillUnmount() {
+    console.log('UNMOUNTED: Request-Selected view');
+    RequestStore.removeChangeListener(this._onChange);
+  }
+
 
   handlePress(rowData) {
     this.props.navigator.push({
@@ -55,6 +113,17 @@ class SelectedRequest extends React.Component {
       component: Profile,
       passProps: {
         user_id: rowData.user_id,
+        navigator: this.props.navigator
+      }
+    });
+  }
+
+  handlePressPhoto(rowData) {
+    this.props.navigator.push({
+      title: rowData.description,
+      component: Photo,
+      passProps: {
+        photoId: rowData.id,
         navigator: this.props.navigator
       }
     });
@@ -72,18 +141,50 @@ class SelectedRequest extends React.Component {
     });
   }
 
+  renderHeader(){
+    var tags = [];
+    for (var i=0; i<this.state.tags.length; i++){
+      tags.push(this.state.tags[i].tagname);
+    }
+
+    console.log('tags in renderHeader: ', tags);
+
+    return (
+      <View style={styles.title}>
+        <Text style={styles.titleText}>{this.state.text}</Text>
+        <Text style={styles.subtitle}>Tags: {tags.join(' ')}</Text>
+        <Text style={styles.subtitleRight}>Requested by: {this.state.username}</Text>
+      </View>
+    );
+  }
+
   renderRow(rowData) {
     return (
       <View>
         <View style={styles.rowContainer}>
-          <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>
-          <Text style={styles.username}> Submitted by: </Text>
+          
           <TouchableHighlight
-            onPress={this.handlePress.bind(this, rowData)}
+            onPress={this.handlePressPhoto.bind(this, rowData)}
             underlayColor='white'> 
-            <Text> {rowData.username} </Text>
+            <View>
+              <Image source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} style={styles.image}/>  
+              <View style={styles.rowSpaced}>
+                <Text> {rowData.likes} likes </Text>
+                <Text style={styles.pullRight}>{rowData.comments} comments</Text>
+              </View>
+            </View>
           </TouchableHighlight>
+
+          <View style={styles.row}>
+            <Text style={styles.username}> Submitted by: </Text>
+            <TouchableHighlight
+              onPress={this.handlePress.bind(this, rowData)}
+              underlayColor='white'> 
+              <Text> {rowData.username} </Text>
+            </TouchableHighlight>
+          </View>  
           <Text> {rowData.description} </Text>
+        
         </View>
         <Separator/>
       </View>
@@ -91,10 +192,14 @@ class SelectedRequest extends React.Component {
   }
 
   render(){
+    console.log('rendering this.state.photos: ', this.state.photos);
+    var dataSource = this.ds.cloneWithRows(this.state.photos);
+
     return (
       <View style={styles.container}>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={dataSource}
+          renderHeader={this.renderHeader.bind(this)}
           renderRow={this.renderRow.bind(this)} />
         <TouchableHighlight
           onPress={this.cameraRoll.bind(this)}
