@@ -25,5 +25,6 @@ build/
 
 # node.js
 #
-node_modules/
+node_modules/*
+!node_modules/react-native/React/Base/RCTCustom.m
 npm-debug.log

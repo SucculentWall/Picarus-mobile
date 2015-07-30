@@ -60,7 +60,10 @@ var AppActions = {
   },
 
   addPhoto: function(photo, username, request_id, tags, description) {
-    api.addPhoto(photo, username, request_id, tags, description);
+    api.addPhoto(photo, username, request_id, tags, description)
+      .then((result) => {
+        AppActions.getRequest(request_id);
+      });
   },
 
   addRequest: function(text, username, tags) {
