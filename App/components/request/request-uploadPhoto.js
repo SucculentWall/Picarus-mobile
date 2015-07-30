@@ -24,6 +24,7 @@ var styles = StyleSheet.create({
     height: 350,
   },
   container: {
+    marginTop: 75,
     margin: 10,
     flex: 1,
     flexDirection: 'column',
@@ -39,15 +40,6 @@ var styles = StyleSheet.create({
   }
 });
 
-function b64toBlob(b64) {
-  var binary = atob(b64);
-  var array = [];
-  for(var i = 0; i < binary.length; i++) {
-    array.push(binary.charCodeAt(i));
-  }
-  return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-}
-
 class UploadPhoto extends React.Component {
   constructor(props) {
     super(props);
@@ -56,8 +48,7 @@ class UploadPhoto extends React.Component {
       error: ''
     };
     NativeModules.ReadImageData.readImage(this.props.image, (image) => {
-      var blob = b64toBlob(image);
-      this.setState({image: blob});
+      this.setState({image: image});
     });
   }
 
