@@ -5,6 +5,7 @@ var AppConstants = require('../../constants/app-constants.js');
 var AppActions = require('../../actions/app-actions.js');
 var Separator = require('../helpers/separator.js');
 var api = require('../../utils/api.js');
+var AuthStore = require('../../stores/app-authStore');
 var self;
 
 var PhotoStore = require('../../stores/app-photoStore');
@@ -17,6 +18,7 @@ var {
   TouchableHighlight,
   StyleSheet,
   NavigatorIOS,
+  TextInput
 } = React;
 
 var styles = StyleSheet.create({
@@ -67,6 +69,7 @@ class Photo extends React.Component {
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
       dataSource: self.ds.cloneWithRows([]),
+      newComment: '',
       error: ''
     }
   }
@@ -96,6 +99,13 @@ class Photo extends React.Component {
     PhotoStore.removeChangeListener(this._onChange);
   }
 
+  handleSubmit() {
+    var newComment = self.state.newComment;
+    if (!newComment.length) return;
+    var username = AuthStore.getUsername();
+    self.setState({newComment: ''});
+    AppActions.addComment(newComment, username, self.state.id);
+  }
 
   renderHeader(state){
     return (
@@ -128,6 +138,16 @@ class Photo extends React.Component {
           dataSource={self.state.dataSource} 
           renderHeader={self.renderHeader}
           renderRow={self.renderRow} />
+        <Text>Make a comment </Text>  
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(newComment) => self.setState({newComment})}
+          value={self.state.newComment}/>
+        <TouchableHighlight
+          onPress={self.handleSubmit}
+          underlayColor='white'>
+          <Text> Submit! </Text>
+          </TouchableHighlight>
       </View>
     )
   }
