@@ -56,6 +56,22 @@ var api = {
     }).then((res) => res.json());
   },
 
+  addComment(text, username, photo_id) {
+    var url = `${AppConstants.API_URL}/api/comments`;
+    var data = {
+      text: text,
+      username: username,
+      photo_id: photo_id
+    }
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type':'application/json'
+        },
+      body: JSON.stringify(data)
+    }).then((res) => res.json());
+  },
+
   addPhoto(photo, username, request_id, tags, description) {
     
     // TODO: Properly send formdata    

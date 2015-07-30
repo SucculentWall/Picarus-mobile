@@ -70,6 +70,14 @@ var AppActions = {
       });
   },
 
+  addComment: function(text, username, photoId) {
+    api.addComment(text, username, photoId)
+      .then((result) => {
+        console.log('this is from addComment: ', result);
+        AppActions.getInfoForPhoto(photoId);
+      })
+  },
+
   loggedIn: function(data) {
     console.log('loggedIn data: ', data);
     api.getUserInfo(data.token)
