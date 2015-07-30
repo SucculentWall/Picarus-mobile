@@ -59,8 +59,8 @@ var AppActions = {
       });
   },
 
-  addPhoto: function(photo, username, request_id, tags, description, size) {
-    api.addPhoto(photo, username, request_id, tags, description, size);
+  addPhoto: function(photo, username, request_id, tags, description) {
+    api.addPhoto(photo, username, request_id, tags, description);
   },
 
   addRequest: function(text, username, tags) {

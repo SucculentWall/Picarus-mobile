@@ -13,6 +13,7 @@ var {
   ListView,
   TouchableHighlight,
   StyleSheet,
+  NativeModules
 } = React;
 
 var styles = StyleSheet.create({
@@ -38,6 +39,15 @@ var styles = StyleSheet.create({
   }
 });
 
+function b64toBlob(b64) {
+  var binary = atob(b64);
+  var array = [];
+  for(var i = 0; i < binary.length; i++) {
+    array.push(binary.charCodeAt(i));
+  }
+  return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+}
+
 class UploadPhoto extends React.Component {
   constructor(props) {
     super(props);
@@ -45,18 +55,19 @@ class UploadPhoto extends React.Component {
       description: '',
       error: ''
     };
+    NativeModules.ReadImageData.readImage(this.props.image, (image) => {
+      var blob = b64toBlob(image);
+      this.setState({image: blob});
+    });
   }
 
   handleSubmit() {
-    console.log('uploadPhoto handleSubmit props ', this.props);
     var username = AuthStore.getUsername();
     var request_id = this.props.request_id;
-    var photo = this.props.image;
+    var photo = this.state.image;
     var tags = this.props.tags;
     var description = this.state.description;
-    var size;
-    console.log(photo, username, request_id, tags, description, size);
-    AppActions.addPhoto(photo, username, request_id, tags, description, size);
+    AppActions.addPhoto(photo, username, request_id, tags, description);
     this.props.navigator.popN(2);
   }
 

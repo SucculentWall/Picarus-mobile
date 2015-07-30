@@ -56,25 +56,32 @@ var api = {
     }).then((res) => res.json());
   },
 
-  addPhoto(photo, username, request_id, tags, description, size) {
-    var data = new FormData();
-    data.append('username', username);
-    data.append('request_id', request_id);
-    data.append('tags', JSON.stringify(tags));
-    data.append('description', description);
-    data.append('size', size);
-    data.append('photo', photo);
-    console.log(data);
+  addPhoto(photo, username, request_id, tags, description) {
+    
+    // TODO: Properly send formdata    
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+
+    var form = new FormData();
+    form.append('username', username);
+    form.append('request_id', request_id);
+    form.append('tags', JSON.stringify(tags));
+    form.append('description', description);
+    // form.append('photo', { photo, name: 'image.jpg' });
+    console.log('addPhoto ', form);
     var url = `${AppConstants.API_URL}/api/photos`;
 
-  // TODO: account for size on the back-end
+    console.log(xhr);
+    // xhr.send(form);
 
     // return fetch(url, {
     //   method: 'POST',
+    //   mode: 'FormData',
     //   headers: {
-    //     'Content-Type': 'multiform/form-data'
+    //     'Content-Type': 'multipart/form-data',
     //    },
-    //   body: JSON.stringify(data)
+    //   body: JSON.stringify(form)
     // }).then((res) => res.json());
   
   },
