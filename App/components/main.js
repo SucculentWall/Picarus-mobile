@@ -5,6 +5,7 @@ var Recents = require('./recents/recents.js');
 var Requests = require('./request/app-request');
 var Profile = require('./profile/app-profile');
 var AuthStore = require('../stores/app-authStore.js');
+var About = require('./about/app-about');
 
 var {
   AppRegistry,
@@ -73,9 +74,7 @@ class Main extends React.Component {
           selected={this.state.selectedTab === 'more'}
           onPress={() => this.setTab('more')}
           systemIcon="more">
-            <View style={styles.tabContent}>
-              <Text style={styles.tabText}>More</Text>
-            </View>
+            <About navigator={this.props.navigator} />
           </TabBarIOS.Item>
         </TabBarIOS>
     );
