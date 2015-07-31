@@ -126,6 +126,25 @@ var api = {
         },
       body: JSON.stringify(data)
     }).then((res) => res.json());
+  },
+
+  likeOrUnlikePhoto(photoId, userId, likeOrUnlike) {
+    var url = `${AppConstants.API_URL}/api/photos/likes`;
+    var data = {
+      photo_id: photoId,
+      currUserId: userId,
+      like: likeOrUnlike
+    };
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        },
+      body: JSON.stringify(data)
+    }).then((res) => {
+      // console.log('this is res: ', res.json());
+      return res.json()
+    });
   }
   
 };

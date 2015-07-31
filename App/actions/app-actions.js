@@ -122,6 +122,13 @@ var AppActions = {
     });
   },
 
+  receivePhotoLike: function(data) {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.LIKE_PHOTO,
+      data: data
+    });
+  },
+
   getPhotoLikes: function(user_id) {
     api.getPhotoLikes(user_id)
       .then((result) => {
@@ -131,9 +138,14 @@ var AppActions = {
       })
   },
 
-  checkLiked: function(photoId, userId) {
-    api.checkLiked(photoID, userId)
-      .then
+  likeOrUnlikePhoto: function(photoId, userId, likeOrUnlike) {
+    api.likeOrUnlikePhoto(photoId, userId, likeOrUnlike)
+      .then((result) => {
+        console.log('result received: ', result);
+        result.likeOrUnlike = likeOrUnlike;
+        result.currUserId = userId;
+        AppActions.receivePhotoLike(result);
+      });
   }
 
 };
