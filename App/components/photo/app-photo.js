@@ -66,7 +66,6 @@ class Photo extends React.Component {
     self = this;
     self.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     var comms = getData().photoObj.comments;
-    console.log('these are comms: ', comms);
     self.state = {
       comments: getData().photoObj.comments || [],
       filename: getData().photoObj.filename || '',
@@ -145,7 +144,7 @@ class Photo extends React.Component {
   }
 
   render(){
-    console.log('asdasdfasdfasd: ',self.state.notYetLiked);
+    console.log('user has not yet liked: ',self.state.notYetLiked);
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>

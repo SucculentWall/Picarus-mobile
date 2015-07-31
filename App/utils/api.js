@@ -18,7 +18,6 @@ var api = {
   },
 
   getPhotoLikes(user_id){
-    console.log('from api utils: ',user_id);
     var url = `${AppConstants.API_URL}/api/photos/check`;
     var data = {
       user_id: user_id

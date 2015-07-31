@@ -38,12 +38,10 @@ var styles = StyleSheet.create({
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
-    console.log('app-gallery props: ', props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
   }
 
   handlePress (rowData) {
-    console.log('this is row data passed by gallery: ', rowData);
     this.props.navigator.push({
       title: 'Photo by ' + rowData.username,
       component: Photo,

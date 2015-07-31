@@ -89,7 +89,6 @@ var AppActions = {
   addComment: function(text, username, photoId) {
     api.addComment(text, username, photoId)
       .then((result) => {
-        console.log('this is from addComment: ', result);
         AppActions.getInfoForPhoto(photoId);
       })
   },
@@ -117,7 +116,6 @@ var AppActions = {
   },
 
   receivePhotoLikesCheck: function(data) {
-    console.log('is appactions.receivePhotoLikesCheck firing?: ', data);
     AppDispatcher.handleViewAction({
       actionType: AppConstants.RECEIVE_PHOTO_LIKES,
       data: data
@@ -127,7 +125,6 @@ var AppActions = {
   getPhotoLikes: function(user_id) {
     api.getPhotoLikes(user_id)
       .then((result) => {
-        console.log('this is join data from like chcking: ', result);
         AppActions.receivePhotoLikesCheck(result);
       }).catch((error) => {
         console.log(error);
