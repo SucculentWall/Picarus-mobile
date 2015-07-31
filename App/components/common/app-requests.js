@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-// var RequestsStore = require('../../stores/app-requestsStore.js')
+var SelectedRequest = require('../request/request-selected');
 var Separator = require('../helpers/separator.js');
 var RecentsHeader = require('./app-tabHeader.js');
 
@@ -11,6 +11,7 @@ var {
   Text,
   ListView,
   StyleSheet,
+  TouchableHighlight,
   NavigatorIOS
 } = React;
 
@@ -45,13 +46,30 @@ class Requests extends React.Component {
     )
   }
 
+  handlePress (rowData) {
+    this.props.navigator.push({
+      title: rowData.text,
+      component: SelectedRequest,
+      passProps: {
+        request_id: rowData.id,
+      }
+    });
+  }
+
   renderRow(rowData) {
     return (
       <View>
-        <View style={styles.rowContainer}>
-          <Text> {rowData.text} </Text>
-          <Text style={styles.username}> Submitted by: {rowData.username} </Text>
-        </View>
+        <TouchableHighlight 
+          style={styles.rowContainer}
+          onPress={this.handlePress.bind(this, rowData)}
+          underlayColor='white'>
+          
+          <View style={styles.rowContainer}>
+            <Text> {rowData.text} </Text>
+          </View>
+        
+        </TouchableHighlight>
+        
         <Separator/>
       </View>
     )
@@ -66,7 +84,7 @@ class Requests extends React.Component {
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
           dataSource={dataSource}
-          renderRow={this.renderRow} 
+          renderRow={this.renderRow.bind(this)} 
           renderSectionHeader={this.renderHeader.bind(this)}/>
       </View>
     );
