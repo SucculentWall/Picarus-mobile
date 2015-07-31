@@ -28,8 +28,8 @@ var styles = StyleSheet.create({
   rowContainer: {
     padding: 10,
   },
-  avatar: {
-    height: 350,
+  likesContainer: {
+    flexDirection: 'row'
   },
   image: {
     height: 350,
@@ -40,7 +40,7 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-    username: {
+  username: {
     color: '#523A54',
     textAlign: 'right',
     fontSize: 10
@@ -52,7 +52,13 @@ function getData (){
     // get state properties from photo store
     photoObj: PhotoStore.getPhotoObj()
   };
-};
+}
+
+var checkLiked = function(id){
+  var currUserId = AuthStore.getId() || 0;
+  // return bool based on whether there is entry in join table
+  return PhotoStore.getPhotoLikeStatus(currUserId, id);
+}
 
 class Photo extends React.Component {
   constructor(props) {
@@ -60,18 +66,25 @@ class Photo extends React.Component {
     self = this;
     self.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     var comms = getData().photoObj.comments;
-    console.log('these are comms: ', comms);
     self.state = {
       comments: getData().photoObj.comments || [],
       filename: getData().photoObj.filename || '',
-      id: getData().photoObj.id || -1,
-      likes: getData().photoObj.likes || 0,
+      id: getData().photoObj.id || 0,
+      likes: getData().photoObj.likes,
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
       dataSource: self.ds.cloneWithRows([]),
+      request_id: getData().photoObj.request_id || 0,
       newComment: '',
       error: ''
-    }
+    };
+    self.state.notYetLiked = checkLiked(self.state.id) || false;
+  }
+
+  _onId(){
+    self.setState({
+      notYetLiked: checkLiked(self.state.id)
+    });
   }
 
   _onChange() {
@@ -81,21 +94,25 @@ class Photo extends React.Component {
       id: getData().photoObj.id,
       likes: getData().photoObj.likes,
       tags: getData().photoObj.tags,
-      username: getData().photoObj.username
+      username: getData().photoObj.username,
+      request_id: getData().photoObj.request_id
       // error: ''
     });
-    console.log('here are comments ', self.state.comments, self.state.dataSource);
     self.setState({
+      notYetLiked: checkLiked(self.state.id),
       dataSource: self.ds.cloneWithRows(self.state.comments)
     });
   }
 
   componentDidMount() {
+    AuthStore.addChangeListener(this._onId);
     PhotoStore.addChangeListener(this._onChange);
     AppActions.getInfoForPhoto(this.props.photoId);
+    AppActions.getPhotoLikes(AuthStore.getId());
   }
 
   componentWillUnmount() {
+    AuthStore.removeChangeListener(this._onId);
     PhotoStore.removeChangeListener(this._onChange);
   }
 
@@ -104,7 +121,15 @@ class Photo extends React.Component {
     if (!newComment.length) return;
     var username = AuthStore.getUsername();
     self.setState({newComment: ''});
-    AppActions.addComment(newComment, username, self.state.id);
+    AppActions.addComment(newComment, username, self.state.id, self.state.request_id);
+  }
+
+  handleLike(){
+
+  }
+
+  handleUnlike(){
+
   }
 
   renderHeader(state){
@@ -116,6 +141,7 @@ class Photo extends React.Component {
   }
 
   renderRow(rowData) {
+
     return (
       <View>
         <View style={styles.rowContainer}>
@@ -128,17 +154,32 @@ class Photo extends React.Component {
   }
 
   render(){
+    console.log('user has not yet liked: ',self.state.notYetLiked);
+    console.log('self.state.likes: ', self.state.likes);
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
-        <Text> {self.state.likes} likes</Text>
+        <View style={styles.likesContainer}>
+          {self.state.notYetLiked ? 
+            <TouchableHighlight
+              onPress={self.handleLike}
+              underlayColor='grey'>
+              <Text> Like </Text>
+            </TouchableHighlight>: 
+            <TouchableHighlight
+              onPress={self.handleUnlike}
+              underlayColor='grey'>
+              <Text> Unlike </Text>
+            </TouchableHighlight>}
+          <Text> {self.state.likes} likes</Text>
+        </View>
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
           dataSource={self.state.dataSource} 
           renderHeader={self.renderHeader}
           renderRow={self.renderRow} />
-        <Text>Make a comment </Text>  
+        <Text> Make a comment </Text>  
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText={(newComment) => self.setState({newComment})}

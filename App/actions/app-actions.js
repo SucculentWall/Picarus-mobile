@@ -86,10 +86,9 @@ var AppActions = {
       });
   },
 
-  addComment: function(text, username, photoId) {
-    api.addComment(text, username, photoId)
+  addComment: function(text, username, photoId, request_id) {
+    api.addComment(text, username, photoId, request_id)
       .then((result) => {
-        console.log('this is from addComment: ', result);
         AppActions.getInfoForPhoto(photoId);
       })
   },
@@ -114,6 +113,27 @@ var AppActions = {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.NOT_LOGGED_IN
     });
+  },
+
+  receivePhotoLikesCheck: function(data) {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_PHOTO_LIKES,
+      data: data
+    });
+  },
+
+  getPhotoLikes: function(user_id) {
+    api.getPhotoLikes(user_id)
+      .then((result) => {
+        AppActions.receivePhotoLikesCheck(result);
+      }).catch((error) => {
+        console.log(error);
+      })
+  },
+
+  checkLiked: function(photoId, userId) {
+    api.checkLiked(photoID, userId)
+      .then
   }
 
 };

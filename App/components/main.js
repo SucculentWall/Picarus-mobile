@@ -4,6 +4,7 @@ var React = require('react-native');
 var Recents = require('./recents/recents.js');
 var Requests = require('./request/app-request');
 var Profile = require('./profile/app-profile');
+var AuthStore = require('../stores/app-authStore.js');
 
 var {
   AppRegistry,
@@ -64,6 +65,7 @@ class Main extends React.Component {
           selected={this.state.selectedTab === 'favorites'}
           onPress={() => this.setTab('favorites')}
           systemIcon="favorites">
+          {/* user_id hardcoded */}
             <Profile navigator={this.props.navigator} user_id='1' />
           </TabBarIOS.Item>
           
