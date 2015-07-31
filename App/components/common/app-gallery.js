@@ -97,6 +97,7 @@ class Gallery extends React.Component {
   }
 
   render(){
+
     var dataSource = this.ds.cloneWithRows(this.props.photos);
 
     return (

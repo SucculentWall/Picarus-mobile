@@ -2,28 +2,30 @@
 
 var React = require('react-native');
 var Camera = require('react-native-camera');
-var Icon = require('react-native-icons');
+var { Icon, } = require('react-native-icons');
 
 var {
   CameraRoll,
   View,
   Text,
   TouchableHighlight,
-  TouchableOpacity,
   StyleSheet
 } = React;
 
 var styles = StyleSheet.create({
+  iconcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  icon: {
+    height: 70,
+    width: 70
+  },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'transparent',
-  },
-  button: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
   }
 });
 
@@ -53,13 +55,20 @@ class CameraView extends React.Component {
         style={styles.container}
         onBarCodeRead={this._onBarCodeRead}
         type={this.state.cameraType}>
-        <TouchableOpacity
-          style={styles.button}
+        <TouchableHighlight
           onPress={this._takePicture.bind(this)}>
-        </TouchableOpacity>
+          <View style={styles.iconcontainer}>
+            <Icon
+              name='ion|camera'
+              size={70}
+              color='#fff'
+              style={styles.icon} />
+          </View>
+        </TouchableHighlight>
       </Camera>
     );
   }
+
 }
 
 module.exports = CameraView;
