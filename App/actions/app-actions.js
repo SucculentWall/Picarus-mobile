@@ -117,8 +117,9 @@ var AppActions = {
   },
 
   receivePhotoLikesCheck: function(data) {
+    console.log('is appactions.receivePhotoLikesCheck firing?: ', data);
     AppDispatcher.handleViewAction({
-      type: AppConstants.RECEIVE_PHOTO_LIKES,
+      actionType: AppConstants.RECEIVE_PHOTO_LIKES,
       data: data
     });
   },

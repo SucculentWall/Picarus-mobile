@@ -53,7 +53,6 @@ function getData (){
     photoObj: PhotoStore.getPhotoObj()
   };
 }
-var currUserId = AuthStore.getId();
 
 var checkLiked = function(id){
   var currUserId = AuthStore.getId() || 0;
@@ -71,21 +70,20 @@ class Photo extends React.Component {
     self.state = {
       comments: getData().photoObj.comments || [],
       filename: getData().photoObj.filename || '',
-      id: getData().photoObj.id || -1,
+      id: getData().photoObj.id || 0,
       likes: getData().photoObj.likes || 0,
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
       dataSource: self.ds.cloneWithRows([]),
-      alreadyLiked: checkLiked(currUserId) || false,
       newComment: '',
       error: ''
     };
-
+    self.state.notYetLiked = checkLiked(self.state.id) || false;
   }
 
   _onId(){
     self.setState({
-      alreadyLiked: checkLiked(self.state.id)
+      notYetLiked: checkLiked(self.state.id)
     });
   }
 
@@ -100,6 +98,7 @@ class Photo extends React.Component {
       // error: ''
     });
     self.setState({
+      notYetLiked: checkLiked(self.state.id),
       dataSource: self.ds.cloneWithRows(self.state.comments)
     });
   }
@@ -146,11 +145,11 @@ class Photo extends React.Component {
   }
 
   render(){
+    console.log('asdasdfasdfasd: ',self.state.notYetLiked);
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
         <Text> {self.state.likes} likes</Text>
-
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}

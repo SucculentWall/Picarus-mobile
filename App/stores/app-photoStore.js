@@ -58,8 +58,11 @@ var PhotoStore = objectAssign({},EventEmitter.prototype, {
   },
 
   getPhotoLikeStatus: function(user_id, photo_id) {
+    console.log('these are the params: ', user_id, photo_id);
+    console.log('this is _likeLog: ', _likeLog);
     // check photos_users
     if (Object.keys(_likeLog).length === 0) {
+      console.log('is it this?');
       return true;
     }
     if (_likeLog[photo_id] !== user_id) {
@@ -91,7 +94,9 @@ var PhotoStore = objectAssign({},EventEmitter.prototype, {
         break;
 
       case AppConstants.RECEIVE_PHOTO_LIKES:
-        _receiveAllPhotoLikes(payload.data.data);
+        console.log('firing likelog filler');
+        console.log('payload: ', payload);
+        _receiveAllPhotoLikes(payload.data);
         PhotoStore.emitChange();
         break;
 
