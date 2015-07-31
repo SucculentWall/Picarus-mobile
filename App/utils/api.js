@@ -17,6 +17,21 @@ var api = {
     return fetch(url).then((res) => res.json());
   },
 
+  getPhotoLikes(user_id){
+    console.log('from api utils: ',user_id);
+    var url = `${AppConstants.API_URL}/api/photos/check`;
+    var data = {
+      user_id: user_id
+    };
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        },
+      body: JSON.stringify(data)
+    }).then((res) => res.json());
+  },
+
   getAllRequests() {
     var url = `${AppConstants.API_URL}/api/requests`;
     return fetch(url).then((res) => res.json());

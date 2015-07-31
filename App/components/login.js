@@ -77,7 +77,7 @@ class Login extends React.Component{
     this.props.navigator.push({
       title: 'Picarus',
       component: Main,
-      passProps: { user: this.state.user }
+      passProps: { user: this.state.user}
     });
   }
 

@@ -52,7 +52,14 @@ function getData (){
     // get state properties from photo store
     photoObj: PhotoStore.getPhotoObj()
   };
-};
+}
+var currUserId = AuthStore.getId();
+
+var checkLiked = function(id){
+  var currUserId = AuthStore.getId() || 0;
+  // return bool based on whether there is entry in join table
+  return PhotoStore.getPhotoLikeStatus(currUserId, id);
+}
 
 class Photo extends React.Component {
   constructor(props) {
@@ -69,9 +76,17 @@ class Photo extends React.Component {
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
       dataSource: self.ds.cloneWithRows([]),
+      alreadyLiked: checkLiked(currUserId) || false,
       newComment: '',
       error: ''
-    }
+    };
+
+  }
+
+  _onId(){
+    self.setState({
+      alreadyLiked: checkLiked(self.state.id)
+    });
   }
 
   _onChange() {
@@ -84,18 +99,20 @@ class Photo extends React.Component {
       username: getData().photoObj.username
       // error: ''
     });
-    console.log('here are comments ', self.state.comments, self.state.dataSource);
     self.setState({
       dataSource: self.ds.cloneWithRows(self.state.comments)
     });
   }
 
   componentDidMount() {
+    AuthStore.addChangeListener(this._onId);
     PhotoStore.addChangeListener(this._onChange);
     AppActions.getInfoForPhoto(this.props.photoId);
+    AppActions.getPhotoLikes(AuthStore.getId());
   }
 
   componentWillUnmount() {
+    AuthStore.removeChangeListener(this._onId);
     PhotoStore.removeChangeListener(this._onChange);
   }
 
@@ -116,6 +133,7 @@ class Photo extends React.Component {
   }
 
   renderRow(rowData) {
+
     return (
       <View>
         <View style={styles.rowContainer}>
@@ -132,13 +150,14 @@ class Photo extends React.Component {
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
         <Text> {self.state.likes} likes</Text>
+
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
           dataSource={self.state.dataSource} 
           renderHeader={self.renderHeader}
           renderRow={self.renderRow} />
-        <Text>Make a comment </Text>  
+        <Text> Make a comment </Text>  
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           onChangeText={(newComment) => self.setState({newComment})}

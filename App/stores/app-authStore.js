@@ -55,6 +55,7 @@ var AuthStore = objectAssign({},EventEmitter.prototype, {
     switch(payload.actionType) {
 
       case AppConstants.LOGGED_IN:
+        console.log('is logged in: ', payload.data);
         _logIn(payload.data);
         AuthStore.emitChange();
         break;

@@ -114,6 +114,28 @@ var AppActions = {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.NOT_LOGGED_IN
     });
+  },
+
+  receivePhotoLikesCheck: function(data) {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RECEIVE_PHOTO_LIKES,
+      data: data
+    });
+  },
+
+  getPhotoLikes: function(user_id) {
+    api.getPhotoLikes(user_id)
+      .then((result) => {
+        console.log('this is join data from like chcking: ', result);
+        AppActions.receivePhotoLikesCheck(result);
+      }).catch((error) => {
+        console.log(error);
+      })
+  },
+
+  checkLiked: function(photoId, userId) {
+    api.checkLiked(photoID, userId)
+      .then
   }
 
 };
