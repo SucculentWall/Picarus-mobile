@@ -22,9 +22,9 @@ function _receiveAllPhotoLikes (joinData) {
 }
 
 function _updatePhotoLikes (data) {
-  var likeOrUnlike = data.config.data.like; // true or false
-  var photoId = data.data.id;
-  var currUserId = data.config.data.currUserId;
+  var likeOrUnlike = data.likeOrUnlike; // true or false
+  var photoId = data.id;
+  var currUserId = data.currUserId;
   // if was a like
   if (likeOrUnlike) {
     // put in log
@@ -33,7 +33,7 @@ function _updatePhotoLikes (data) {
     // remove from log
     delete _likeLog[photoId];
   }
-  _photoList[photoId] = data.data;
+  _photoObj.likes = data.likes;
 }
 
 var PhotoStore = objectAssign({},EventEmitter.prototype, {

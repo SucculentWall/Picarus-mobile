@@ -94,7 +94,6 @@ var AppActions = {
   },
 
   loggedIn: function(data) {
-    console.log('loggedIn data: ', data);
     api.getUserInfo(data.token)
       .then((result) => {
         return api.findOrCreateUser(result.id, result.name, data.token);
@@ -122,6 +121,13 @@ var AppActions = {
     });
   },
 
+  receivePhotoLike: function(data) {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.LIKE_PHOTO,
+      data: data
+    });
+  },
+
   getPhotoLikes: function(user_id) {
     api.getPhotoLikes(user_id)
       .then((result) => {
@@ -131,9 +137,13 @@ var AppActions = {
       })
   },
 
-  checkLiked: function(photoId, userId) {
-    api.checkLiked(photoID, userId)
-      .then
+  likeOrUnlikePhoto: function(photoId, userId, likeOrUnlike) {
+    api.likeOrUnlikePhoto(photoId, userId, likeOrUnlike)
+      .then((result) => {
+        result.likeOrUnlike = likeOrUnlike;
+        result.currUserId = userId;
+        AppActions.receivePhotoLike(result);
+      });
   }
 
 };

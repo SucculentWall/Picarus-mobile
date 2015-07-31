@@ -76,6 +76,7 @@ class Photo extends React.Component {
       dataSource: self.ds.cloneWithRows([]),
       request_id: getData().photoObj.request_id || 0,
       newComment: '',
+      currUserId: AuthStore.getId(),
       error: ''
     };
     self.state.notYetLiked = checkLiked(self.state.id) || false;
@@ -83,6 +84,7 @@ class Photo extends React.Component {
 
   _onId(){
     self.setState({
+      currUserId: AuthStore.getId(),
       notYetLiked: checkLiked(self.state.id)
     });
   }
@@ -125,11 +127,14 @@ class Photo extends React.Component {
   }
 
   handleLike(){
-
+    // set Like vs Unlike display optimistically
+    self.setState({notYetLiked: false});
+    AppActions.likeOrUnlikePhoto(self.state.id, self.state.currUserId, true);
   }
 
   handleUnlike(){
-
+    self.setState({notYetLiked: true});
+    AppActions.likeOrUnlikePhoto(self.state.id, self.state.currUserId, false);
   }
 
   renderHeader(state){
@@ -154,8 +159,8 @@ class Photo extends React.Component {
   }
 
   render(){
-    console.log('user has not yet liked: ',self.state.notYetLiked);
-    console.log('self.state.likes: ', self.state.likes);
+    // console.log('user has not yet liked: ',self.state.notYetLiked);
+    // console.log('self.state.likes: ', self.state.likes);
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
