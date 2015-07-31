@@ -28,9 +28,6 @@ var styles = StyleSheet.create({
   rowContainer: {
     padding: 10,
   },
-  avatar: {
-    height: 350,
-  },
   image: {
     height: 350,
   },
@@ -40,7 +37,7 @@ var styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-    username: {
+  username: {
     color: '#523A54',
     textAlign: 'right',
     fontSize: 10
@@ -70,7 +67,7 @@ class Photo extends React.Component {
       comments: getData().photoObj.comments || [],
       filename: getData().photoObj.filename || '',
       id: getData().photoObj.id || 0,
-      likes: getData().photoObj.likes || 0,
+      likes: getData().photoObj.likes,
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
       dataSource: self.ds.cloneWithRows([]),
@@ -145,10 +142,14 @@ class Photo extends React.Component {
 
   render(){
     console.log('user has not yet liked: ',self.state.notYetLiked);
+    console.log('self.state.likes: ', self.state.likes);
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
-        <Text> {self.state.likes} likes</Text>
+        <Text style={styles.likeContainer}>
+          {self.state.notYetLiked ? <Text style={styles.likeButton}> Like </Text> : <Text> Unlike </Text>}
+          <Text style={styles.numLikes}> {self.state.likes} likes</Text>
+        </Text>
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
