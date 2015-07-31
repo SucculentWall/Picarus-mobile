@@ -86,8 +86,8 @@ var AppActions = {
       });
   },
 
-  addComment: function(text, username, photoId) {
-    api.addComment(text, username, photoId)
+  addComment: function(text, username, photoId, request_id) {
+    api.addComment(text, username, photoId, request_id)
       .then((result) => {
         AppActions.getInfoForPhoto(photoId);
       })

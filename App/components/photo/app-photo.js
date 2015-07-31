@@ -28,6 +28,9 @@ var styles = StyleSheet.create({
   rowContainer: {
     padding: 10,
   },
+  likesContainer: {
+    flexDirection: 'row'
+  },
   image: {
     height: 350,
   },
@@ -71,6 +74,7 @@ class Photo extends React.Component {
       tags: getData().photoObj.tags || [],
       username: getData().photoObj.username || '',
       dataSource: self.ds.cloneWithRows([]),
+      request_id: getData().photoObj.request_id || 0,
       newComment: '',
       error: ''
     };
@@ -90,7 +94,8 @@ class Photo extends React.Component {
       id: getData().photoObj.id,
       likes: getData().photoObj.likes,
       tags: getData().photoObj.tags,
-      username: getData().photoObj.username
+      username: getData().photoObj.username,
+      request_id: getData().photoObj.request_id
       // error: ''
     });
     self.setState({
@@ -116,7 +121,15 @@ class Photo extends React.Component {
     if (!newComment.length) return;
     var username = AuthStore.getUsername();
     self.setState({newComment: ''});
-    AppActions.addComment(newComment, username, self.state.id);
+    AppActions.addComment(newComment, username, self.state.id, self.state.request_id);
+  }
+
+  handleLike(){
+
+  }
+
+  handleUnlike(){
+
   }
 
   renderHeader(state){
@@ -146,10 +159,20 @@ class Photo extends React.Component {
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
-        <Text style={styles.likeContainer}>
-          {self.state.notYetLiked ? <Text style={styles.likeButton}> Like </Text> : <Text> Unlike </Text>}
-          <Text style={styles.numLikes}> {self.state.likes} likes</Text>
-        </Text>
+        <View style={styles.likesContainer}>
+          {self.state.notYetLiked ? 
+            <TouchableHighlight
+              onPress={self.handleLike}
+              underlayColor='grey'>
+              <Text> Like </Text>
+            </TouchableHighlight>: 
+            <TouchableHighlight
+              onPress={self.handleUnlike}
+              underlayColor='grey'>
+              <Text> Unlike </Text>
+            </TouchableHighlight>}
+          <Text> {self.state.likes} likes</Text>
+        </View>
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
