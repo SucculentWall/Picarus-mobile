@@ -22,7 +22,6 @@ function _receiveAllPhotoLikes (joinData) {
 }
 
 function _updatePhotoLikes (data) {
-  console.log('_updatePhotoLikes\' data: ', data);
   var likeOrUnlike = data.likeOrUnlike; // true or false
   var photoId = data.id;
   var currUserId = data.currUserId;

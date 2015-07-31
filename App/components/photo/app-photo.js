@@ -159,8 +159,8 @@ class Photo extends React.Component {
   }
 
   render(){
-    console.log('user has not yet liked: ',self.state.notYetLiked);
-    console.log('self.state.likes: ', self.state.likes);
+    // console.log('user has not yet liked: ',self.state.notYetLiked);
+    // console.log('self.state.likes: ', self.state.likes);
     return (
       <View style={styles.container}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>

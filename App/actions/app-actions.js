@@ -94,7 +94,6 @@ var AppActions = {
   },
 
   loggedIn: function(data) {
-    console.log('loggedIn data: ', data);
     api.getUserInfo(data.token)
       .then((result) => {
         return api.findOrCreateUser(result.id, result.name, data.token);
@@ -141,7 +140,6 @@ var AppActions = {
   likeOrUnlikePhoto: function(photoId, userId, likeOrUnlike) {
     api.likeOrUnlikePhoto(photoId, userId, likeOrUnlike)
       .then((result) => {
-        console.log('result received: ', result);
         result.likeOrUnlike = likeOrUnlike;
         result.currUserId = userId;
         AppActions.receivePhotoLike(result);
