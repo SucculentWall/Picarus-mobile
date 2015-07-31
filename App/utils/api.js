@@ -102,7 +102,6 @@ var api = {
 
     return fetch(url, {
       method: 'POST',
-      mode: 'FormData',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

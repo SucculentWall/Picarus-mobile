@@ -44,7 +44,6 @@ class CameraRollView extends React.Component {
     super(props);
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
     this.state = {
-      roll: true,
       dataSource: this.ds.cloneWithRows([]),
       error: ''
     };
@@ -52,10 +51,9 @@ class CameraRollView extends React.Component {
 
   componentDidMount() {
     var context = this;
-    CameraRoll.getPhotos({ first: 10 }, 
+    CameraRoll.getPhotos({ first: 20 }, 
       // success
       function(photos) {
-        console.log(photos);
         context.setState({
           dataSource: context.ds.cloneWithRows(photos.edges)
         });
@@ -81,7 +79,13 @@ class CameraRollView extends React.Component {
   }
 
   takeNewPhoto() {
-    this.setState({ roll: !this.state.roll });
+    this.props.navigator.push({
+    title: 'Take New Photo',
+    component: CameraView,
+    passProps: {
+      navigator: this.props.navigator
+      }
+    });
   }
 
   renderRow(rowData) {
@@ -96,7 +100,19 @@ class CameraRollView extends React.Component {
   }
 
   render(){
-    var Roll = (
+    // var Roll = (
+    // )
+    // var NotRoll = (
+    //   <View style={styles.margintop}>
+    //     <CameraView data={this.props} />
+    //     <TouchableHighlight
+    //       onPress={this.takeNewPhoto.bind(this)}
+    //       underlayColor='white'> 
+    //       <Text> Back to Camera Roll </Text>
+    //     </TouchableHighlight>
+    //   </View>
+    // )
+    return (
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
@@ -106,21 +122,6 @@ class CameraRollView extends React.Component {
           underlayColor='white'> 
           <Text> Take New Photo </Text>
         </TouchableHighlight>
-      </View>
-    )
-    var NotRoll = (
-      <View style={styles.margintop}>
-        <CameraView data={this.props} />
-        <TouchableHighlight
-          onPress={this.takeNewPhoto.bind(this)}
-          underlayColor='white'> 
-          <Text> Back to Camera Roll </Text>
-        </TouchableHighlight>
-      </View>
-    )
-    return (
-      <View style={styles.container}>
-        {this.state.roll ? Roll : NotRoll}
       </View>
     )
   }

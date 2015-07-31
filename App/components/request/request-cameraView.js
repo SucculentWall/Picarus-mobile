@@ -2,13 +2,14 @@
 
 var React = require('react-native');
 var Camera = require('react-native-camera');
-var UploadPhoto = require('./request-uploadPhoto');
+var Icon = require('react-native-icons');
 
 var {
   CameraRoll,
   View,
   Text,
   TouchableHighlight,
+  TouchableOpacity,
   StyleSheet
 } = React;
 
@@ -19,15 +20,11 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'transparent',
   },
-  welcome: {
+  button: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-  },
+  }
 });
 
 class CameraView extends React.Component {
@@ -38,21 +35,14 @@ class CameraView extends React.Component {
     };
   }
 
-
   _onBarCodeRead(e) {
     console.log(e);
-  }
-
-  _switchCamera() {
-    var state = this.state;
-    state.cameraType = state.cameraType === Camera.constants.Type.back
-      ? Camera.constants.Type.front : Camera.constants.Type.back;
-    this.setState(state);
   }
 
   _takePicture() {
     var context = this.props.data;
     this.refs.cam.capture();
+    this.props.navigator.pop();
   }
 
   render() {
@@ -63,16 +53,13 @@ class CameraView extends React.Component {
         style={styles.container}
         onBarCodeRead={this._onBarCodeRead}
         type={this.state.cameraType}>
-        <TouchableHighlight onPress={this._switchCamera.bind(this)}>
-          <Text>Switch Camera</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this._takePicture.bind(this)}>
-          <Text>Upload Picture</Text>
-        </TouchableHighlight>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this._takePicture.bind(this)}>
+        </TouchableOpacity>
       </Camera>
     );
   }
-
 }
 
 module.exports = CameraView;

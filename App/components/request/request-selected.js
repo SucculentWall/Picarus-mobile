@@ -107,7 +107,7 @@ class SelectedRequest extends React.Component {
   }
 
 
-  handlePress(rowData) {
+  handlePressUser(rowData) {
     this.props.navigator.push({
       title: rowData.username,
       component: Profile,
@@ -135,7 +135,7 @@ class SelectedRequest extends React.Component {
       component: CameraRollView,
       passProps: {
         request_id: this.props.request_id,
-        tags: this.props.tags,
+        tags: this.state.tags,
         navigator: this.props.navigator
       }
     });
@@ -178,7 +178,7 @@ class SelectedRequest extends React.Component {
           <View style={styles.row}>
             <Text style={styles.username}> Submitted by: </Text>
             <TouchableHighlight
-              onPress={this.handlePress.bind(this, rowData)}
+              onPress={this.handlePressUser.bind(this, rowData)}
               underlayColor='white'> 
               <Text> {rowData.username} </Text>
             </TouchableHighlight>
