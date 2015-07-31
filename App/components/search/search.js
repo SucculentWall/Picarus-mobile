@@ -16,6 +16,7 @@ var {
   Text,
   ListView,
   StyleSheet,
+  TouchableHighlight,
   NavigatorIOS
 } = React;
 
@@ -68,11 +69,11 @@ class Search extends React.Component {
   render(){
     if (this.state.tabName === 'photos') {
       return (
-        <Gallery photos={this.state.photos} />  
+        <Gallery navigator={this.props.navigator} photos={this.state.photos} />  
       );
     } else {
       return (
-        <Requests requests={this.state.requests} />
+        <Requests navigator={this.props.navigator} requests={this.state.requests} />
       );
     }
     
