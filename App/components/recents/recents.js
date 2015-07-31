@@ -7,6 +7,7 @@ var RecentsStore = require('../../stores/app-recentsStore.js');
 var Separator = require('../helpers/separator.js');
 var Gallery = require('../common/app-gallery.js');
 var Requests = require('../common/app-requests.js');
+
 var self;
 
 var {
@@ -36,6 +37,7 @@ function getData (){
 
 
 class Recents extends React.Component {
+
   constructor(props) {
     super(props);
     self = this;
@@ -47,9 +49,8 @@ class Recents extends React.Component {
   }
 
   _onChange() {
-    console.log(self);
-    console.log('SETSTATE called on Recents view');
     self.setState(getData());
+    console.log('SETSTATE called on Recents view: ', self.state);
   }
 
   componentDidMount() {
