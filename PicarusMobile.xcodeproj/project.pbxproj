@@ -23,6 +23,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		930D323E1B6C219800225AB6 /* FontAwesomeKit in Resources */ = {isa = PBXBuildFile; fileRef = 930D323D1B6C219800225AB6 /* FontAwesomeKit */; };
 		9331E1F71B61944100B722DB /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9331E1F61B61940D00B722DB /* libRCTCamera.a */; };
 		944EAEED1B5DEC5C00319838 /* libRCTFBLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 944EAEE31B5DEB4300319838 /* libRCTFBLogin.a */; };
 		944EAEF21B5DECCC00319838 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944EAEEE1B5DECCC00319838 /* Bolts.framework */; };
@@ -147,6 +148,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		930D323D1B6C219800225AB6 /* FontAwesomeKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FontAwesomeKit; path = "node_modules/react-native-icons/ios/ReactNativeIcons/Libraries/FontAwesomeKit"; sourceTree = "<group>"; };
 		9331E1F11B61940D00B722DB /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "node_modules/react-native-camera/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		944EAEDD1B5DEB4300319838 /* RCTFBLogin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTFBLogin.xcodeproj; path = "node_modules/react-native-facebook-login/RCTFBLogin.xcodeproj"; sourceTree = "<group>"; };
 		944EAEEE1B5DECCC00319838 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "node_modules/react-native-facebook-login/FacebookSDK/Bolts.framework"; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				930D323D1B6C219800225AB6 /* FontAwesomeKit */,
 				944EAEEE1B5DECCC00319838 /* Bolts.framework */,
 				944EAEEF1B5DECCC00319838 /* FBSDKCoreKit.framework */,
 				944EAEF01B5DECCC00319838 /* FBSDKLoginKit.framework */,
@@ -581,6 +584,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				930D323E1B6C219800225AB6 /* FontAwesomeKit in Resources */,
 				008F07F31AC5B25A0029DE68 /* main.jsbundle in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -673,12 +677,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/node_modules/react-native-facebook-login/FacebookSDK",
+					"$(SRCROOT)/../../React/**",
+					"$(PROJECT_DIR)/node_modules/react-native-facebook-login/FacebookSDK/**",
+					"$(SRCROOT)/../react-native/React/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/node_modules/react-native-facebook/**",
 				);
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -694,12 +703,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/node_modules/react-native-facebook-login/FacebookSDK",
+					"$(SRCROOT)/../../React/**",
+					"$(PROJECT_DIR)/node_modules/react-native-facebook-login/FacebookSDK/**",
+					"$(SRCROOT)/../react-native/React/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/node_modules/react-native/React/**",
+					"$(SRCROOT)/../react-native/React/**",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/node_modules/react-native-facebook/**",
 				);
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

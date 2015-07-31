@@ -5,6 +5,7 @@ var AppConstants = require('../../constants/app-constants.js');
 var Separator = require('../helpers/separator.js');
 var RecentsHeader = require('./app-tabHeader.js');
 var Photo = require('../photo/app-photo.js');
+var Profile = require('../profile/app-profile.js');
 
 var {
   View,
@@ -41,12 +42,23 @@ class Gallery extends React.Component {
     this.ds = new ListView.DataSource({rowHasChanged: (row1, row2) => row1 !== row2});
   }
 
-  handlePress (rowData) {
+  handlePressPhoto (rowData) {
     this.props.navigator.push({
       title: 'Photo by ' + rowData.username,
       component: Photo,
       passProps: {
         photoId: rowData.id
+      }
+    });
+  }
+
+  handlePressUser (rowData) {
+    this.props.navigator.push({
+      title: rowData.username,
+      component: Profile,
+      passProps: {
+        user_id: rowData.user_id,
+        navigator: this.props.navigator
       }
     });
   }
@@ -63,14 +75,19 @@ class Gallery extends React.Component {
         <View style={styles.rowContainer}>
 
           <TouchableHighlight 
-            onPress={this.handlePress.bind(this, rowData)}
+            onPress={this.handlePressPhoto.bind(this, rowData)}
             underlayColor='#384846' >
             <Image 
              source={{uri: AppConstants.PHOTOS_HOST + rowData.filename}} 
              style={styles.image} />
           </TouchableHighlight>
 
-          <Text style={styles.username}> Submitted by: {rowData.username} </Text>
+          <Text style={styles.username}> Submitted by: </Text>
+          <TouchableHighlight
+            onPress={this.handlePressUser.bind(this, rowData)}
+            underlayColor='white'> 
+            <Text style={styles.username}> {rowData.username} </Text>
+          </TouchableHighlight>
           <Text> {rowData.description} </Text>
 
         </View>

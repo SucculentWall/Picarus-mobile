@@ -9,8 +9,9 @@
     "es6-promise": "^2.3.0",
     "events": "^1.0.2",
     "object-assign": "^3.0.0",
-    "react-native": "^0.7.1",
+    "react-native": "^0.8.0",
     "react-native-camera": "^0.3.3",
-    "react-native-facebook-login": "^0.5.2"
+    "react-native-facebook-login": "^0.5.3",
+    "react-native-icons": "^0.3.0"
   }
 }
