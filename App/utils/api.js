@@ -62,7 +62,7 @@ var api = {
       text: text,
       username: username,
       photo_id: photo_id
-    }
+    };
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -73,32 +73,25 @@ var api = {
   },
 
   addPhoto(photo, username, request_id, tags, description) {
-    
-    // TODO: Properly send formdata    
-    
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url);
 
-    var form = new FormData();
-    form.append('username', username);
-    form.append('request_id', request_id);
-    form.append('tags', JSON.stringify(tags));
-    form.append('description', description);
-    // form.append('photo', { photo, name: 'image.jpg' });
-    console.log('addPhoto ', form);
+    var data = {
+      username: username,
+      request_id: request_id,
+      tags: JSON.stringify(tags),
+      description: description,
+      photo: photo
+    };
     var url = `${AppConstants.API_URL}/api/photos`;
 
-    console.log(xhr);
-    // xhr.send(form);
-
-    // return fetch(url, {
-    //   method: 'POST',
-    //   mode: 'FormData',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //    },
-    //   body: JSON.stringify(form)
-    // }).then((res) => res.json());
+    return fetch(url, {
+      method: 'POST',
+      mode: 'FormData',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+       },
+      body: JSON.stringify(data)
+    }).then((res) => res.json());
   
   },
 
