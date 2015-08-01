@@ -9,6 +9,7 @@ var Separator = require('../helpers/separator.js');
 var Profile = require('../profile/app-profile');
 var Photo = require('../photo/app-photo.js');
 var CameraRollView = require('./request-cameraRollView');
+var { Icon, } = require('react-native-icons');
 
 var self;
 
@@ -22,6 +23,14 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+  iconcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  icon: {
+    height: 40,
+    width: 40
+  },
   rowContainer: {
     padding: 10,
   },
@@ -204,7 +213,14 @@ class SelectedRequest extends React.Component {
         <TouchableHighlight
           onPress={this.cameraRoll.bind(this)}
           underlayColor='white'>
-          <Text> Upload Photo </Text>
+          <View style={styles.iconcontainer}>
+            <Icon
+              name='ion|images'
+              size={40}
+              color='#000'
+              style={styles.icon} />
+            <Text> Upload Photo</Text>
+          </View>
           </TouchableHighlight>
       </View>
     )

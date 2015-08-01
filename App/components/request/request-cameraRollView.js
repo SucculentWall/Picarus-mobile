@@ -5,6 +5,7 @@ var api = require('../../utils/api.js');
 var Separator = require('../helpers/separator.js');
 var CameraView = require('./request-cameraView');
 var UploadPhoto = require('./request-uploadPhoto');
+var { Icon, } = require('react-native-icons');
 
 var {
   CameraRoll,
@@ -19,6 +20,14 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+  iconcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  icon: {
+    height: 40,
+    width: 40
+  },
   rowContainer: {
     padding: 10,
   },
@@ -100,27 +109,23 @@ class CameraRollView extends React.Component {
   }
 
   render(){
-    // var Roll = (
-    // )
-    // var NotRoll = (
-    //   <View style={styles.margintop}>
-    //     <CameraView data={this.props} />
-    //     <TouchableHighlight
-    //       onPress={this.takeNewPhoto.bind(this)}
-    //       underlayColor='white'> 
-    //       <Text> Back to Camera Roll </Text>
-    //     </TouchableHighlight>
-    //   </View>
-    // )
     return (
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)} />
+
         <TouchableHighlight
           onPress={this.takeNewPhoto.bind(this)}
           underlayColor='white'> 
-          <Text> Take New Photo </Text>
+          <View style={styles.iconcontainer}>
+            <Icon
+              name='ion|camera'
+              size={40}
+              color='#000'
+              style={styles.icon} />
+            <Text> Take New Photo </Text>
+          </View>
         </TouchableHighlight>
       </View>
     )
