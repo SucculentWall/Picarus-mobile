@@ -4,8 +4,8 @@ var React = require('react-native');
 var AppConstants = require('../../constants/app-constants.js');
 var Separator = require('../helpers/separator.js');
 var api = require('../../utils/api.js');
-// var ProfileComment = require('./profile-comment');
-// var ProfileRequest = require('./profile-request');
+var ProfileComment = require('./profile-comment');
+var ProfileRequest = require('./profile-request');
 
 var {
   View,
@@ -18,11 +18,15 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
-  userBar: {
-    // margin: -100
+  name: {
+    fontSize: 20,
+    textAlign: 'center'
   },
   rowContainer: {
     padding: 10,
+  },
+  header: {
+    marginTop: -55
   },
   avatar: {
     height: 350,
@@ -31,7 +35,7 @@ var styles = StyleSheet.create({
     height: 350,
   },
   container: {
-    marginTop: 64,
+    marginTop: 75,
     margin: 10,
     flex: 1,
     flexDirection: 'column',
@@ -72,11 +76,11 @@ class Profile extends React.Component {
         // profileRequests.push(<ProfileRequest navigator={this.props.navigator} data={state.requests[i]} />);
         // profileComments.push(<ProfileComment navigator={this.props.navigator} data={state.comments[i]} />);
       }
-    // console.log(profileRequests); 
-    // console.log(profileComments); 
+    console.log(profileRequests); 
+    console.log(profileComments); 
     }
     return (
-      <View>
+      <View style={styles.header}>
         <Image source={{uri: AppConstants.PHOTOS_HOST + state.avatar}} style={styles.avatar}/>
         <Separator/>
         <Text> Recent Requests </Text>
@@ -105,7 +109,7 @@ class Profile extends React.Component {
   render(){
     return (
       <View style={styles.container}>
-        <Text> {this.state.username} </Text>
+        <Text style={styles.name}> {this.state.username} </Text>
         <ListView
           dataSource={this.state.dataSource}
           renderHeader={this.renderHeader.bind(this, this.state)}

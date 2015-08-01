@@ -101,17 +101,14 @@ class SelectedRequest extends React.Component {
 
   _onChange() {
     self.setState(getData());
-    console.log('SETSTATE called on Request-Selected: ', self.state);
   }
 
   componentDidMount() {
-    console.log('MOUNTED: Request-Selected view');
     RequestStore.addChangeListener(this._onChange);
     AppActions.getRequest(this.props.request_id);
   }
 
   componentWillUnmount() {
-    console.log('UNMOUNTED: Request-Selected view');
     RequestStore.removeChangeListener(this._onChange);
   }
 
@@ -156,7 +153,6 @@ class SelectedRequest extends React.Component {
       tags.push(this.state.tags[i].tagname);
     }
 
-    console.log('tags in renderHeader: ', tags);
 
     return (
       <View style={styles.title}>
@@ -201,7 +197,6 @@ class SelectedRequest extends React.Component {
   }
 
   render(){
-    console.log('rendering this.state.photos: ', this.state.photos);
     var dataSource = this.ds.cloneWithRows(this.state.photos);
 
     return (

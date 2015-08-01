@@ -50,18 +50,15 @@ class Recents extends React.Component {
 
   _onChange() {
     self.setState(getData());
-    console.log('SETSTATE called on Recents view: ', self.state);
   }
 
   componentDidMount() {
-    console.log('MOUNTED: Recents view');
     HeaderTabStore.addChangeListener(this._onChange);
     RecentsStore.addChangeListener(this._onChange);
     AppActions.getRecents();
   }
 
   componentWillUnmount() {
-    console.log('UNMOUNTED: Recents view');
     HeaderTabStore.removeChangeListener(this._onChange);
     RecentsStore.removeChangeListener(this._onChange);
   }
