@@ -21,7 +21,13 @@ var {
   TextInput
 } = React;
 
+var { Icon, } = require('react-native-icons');
+
 var styles = StyleSheet.create({
+  heart: {
+    height: 20,
+    width: 20
+  },
   userBar: {
     // margin: -100
   },
@@ -166,18 +172,27 @@ class Photo extends React.Component {
         <Image source={{uri: AppConstants.PHOTOS_HOST + self.state.filename}} style={styles.image}/>
         <View style={styles.likesContainer}>
           {self.state.notYetLiked ? 
-            <TouchableHighlight
-              onPress={self.handleLike}
-              underlayColor='grey'>
-              <Text> Like </Text>
-            </TouchableHighlight>: 
-            <TouchableHighlight
-              onPress={self.handleUnlike}
-              underlayColor='grey'>
-              <Text> Unlike </Text>
+            <TouchableHighlight onPress={self.handleLike} underlayColor='white'>
+              <View>
+                <Icon
+                  name='ion|ios-heart-outline'
+                  size={20} 
+                  onPress={self.handleLike} 
+                  style={styles.heart}/>
+              </View> 
+            </TouchableHighlight> :
+            <TouchableHighlight onPress={self.handleUnlike} underlayColor='white'>
+              <View>
+                <Icon
+                  name='ion|heart'
+                  size={20} 
+                  style={styles.heart}
+                  color='red'/>
+              </View>
             </TouchableHighlight>}
           <Text> {self.state.likes} likes</Text>
         </View>
+
         <ListView 
           automaticallyAdjustContentInsets={false}
           contentInset={{bottom:49}}
