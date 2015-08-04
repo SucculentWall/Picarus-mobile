@@ -21,7 +21,6 @@ var _likeLog = {};
 
 function _receiveRequest(data) {
   _request = data;
-  console.log('requestStore received request data: ', _request);
 }
 
 function _receiveComments (photoData) {

@@ -11,6 +11,10 @@ var AppActions = {
     });
   },
 
+  getProfileInfo: function(user_id) {
+    api.getProfileInfo(user_id);
+  },
+
   getRecents: function() {
     api.getAllPhotos()
       .then((data) => {
@@ -36,7 +40,6 @@ var AppActions = {
   getRequest: function (requestId) {
     api.getRequest(requestId)
       .then((data) => {
-        console.log('AppActions.getRequest data result: ', data);
         AppDispatcher.handleViewAction({
           actionType: AppConstants.RECEIVE_REQUEST,
           data: data
@@ -49,7 +52,6 @@ var AppActions = {
   getSearch: function (query) {
     api.getSearch(query)
       .then((data) => {
-        console.log('AppActions.getSearch data result: ', data);
         AppDispatcher.handleViewAction({
           actionType: AppConstants.RECEIVE_SEARCH_RESULTS,
           data: data
@@ -60,7 +62,6 @@ var AppActions = {
   },
 
   getInfoForPhoto: function(photoId) {
-    console.log('getInfoForPhoto fired with photoId: ', photoId);
     api.getInfoForPhoto(photoId)
       .then((data) => {
         AppDispatcher.handleViewAction({

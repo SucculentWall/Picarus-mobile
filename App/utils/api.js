@@ -7,6 +7,11 @@ var api = {
     return fetch(url).then((res) => res.json());
   },
 
+  getProfileInfo(user_id) {
+    var url = `${AppConstants.API_URL}/api/users/${user_id}`;
+    return fetch(url).then((res) => res.json());
+  },
+
   getAllPhotos() {
     var url = `${AppConstants.API_URL}/api/photos`;
     return fetch(url).then((res) => res.json());
@@ -107,7 +112,7 @@ var api = {
         'Content-Type': 'application/json',
        },
       body: JSON.stringify(data)
-    }).then((res) => res.json());
+    }).then((res) => {res.json();});
   
   },
 
