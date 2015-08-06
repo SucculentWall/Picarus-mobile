@@ -47,7 +47,7 @@ class UploadPhoto extends React.Component {
       description: '',
       error: ''
     };
-    NativeModules.ReadImageData.readImage(this.props.image, (image) => {
+    NativeModules.PhotoData.getData(this.props.image, (image) => {
       this.setState({image: image});
     });
   }
