@@ -78,12 +78,6 @@ var PhotoStore = objectAssign({},EventEmitter.prototype, {
         PhotoStore.emitChange();
         break;
 
-      // case AppConstants.RECEIVE_LIKE_CHECK:
-      //   console.log('from receive like check: ', payload);
-      //   _receiveLikeCheck(payload.data);
-      //   PhotoStore.emitChange();
-      //   break;
-
       case AppConstants.LIKE_PHOTO:
         _updatePhotoLikes(payload.data);
         PhotoStore.emitChange();
